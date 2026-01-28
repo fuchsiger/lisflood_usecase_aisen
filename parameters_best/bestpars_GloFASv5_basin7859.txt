@@ -1,0 +1,11 @@
+b_Xinanjiang: 3.09004
+CalChanMan1: 4.49689
+CalChanMan3: 1
+GwLoss: 0.0866118
+GwPercValue: 0.878763
+LZTC: 40
+UZTC: 9.0402
+LZThreshold: 5.65075
+PowerPrefFlow: 1.51084
+SnowMeltCoef: 5.10491
+TransSub: 0.000135783
