@@ -296,7 +296,7 @@
                 </comment>
             </textvar>
 
-            <textvar name="PathMeteo" value="$(PathRoot)/maps">
+            <textvar name="PathMeteo" value="$(PathRoot)/meteo">
                 <comment>
                     ./meteoWatch
                     Meteo path
