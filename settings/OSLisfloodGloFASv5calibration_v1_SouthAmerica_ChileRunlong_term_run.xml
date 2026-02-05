@@ -84,7 +84,7 @@
         # report maps
         #-----------------------------------------------------------
         # report state maps
-        <setoption choice="0" name="repStateMaps"/>
+        <setoption choice="1" name="repStateMaps"/>
 
         # report end maps
         <setoption choice="0" name="repEndMaps"/>
@@ -240,7 +240,7 @@
                 </comment>
             </textvar>
 
-            <textvar name="PathInit" value="$(PathRoot)/out/long_term_run">
+            <textvar name="PathInit" value="$(PathRoot)/out/initial">
                 <comment>
                     Path of the initial value maps e.g. lzavin.map
                 </comment>

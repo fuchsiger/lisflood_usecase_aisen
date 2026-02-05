@@ -225,7 +225,7 @@
                 </comment>
             </textvar>
 
-            <textvar name="PathInit" value="$(PathRoot)/out/long_term_run">
+            <textvar name="PathInit" value="$(PathRoot)/out/initial">
                 <comment>
                     Path of the initial value maps e.g. lzavin.map
                 </comment>
