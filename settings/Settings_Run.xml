@@ -84,26 +84,26 @@
         # report maps
         #-----------------------------------------------------------
         # report state maps
-        <setoption choice="0" name="repStateMaps"/>
+        <setoption choice="1" name="repStateMaps"/>
 
         # report end maps
         <setoption choice="0" name="repEndMaps"/>
         <setoption choice="0" name="repTopSoilMoistureMaps"/>
         <setoption choice="0" name="repSurfaceSoilMoistureMaps"/>
-        <setoption choice="0" name="repDischargeMaps"/>
+        <setoption choice="1" name="repDischargeMaps"/>
         <setoption choice="1" name="repSurfaceRunoffMaps"/>
 
         # report maps
 	 <setoption choice="0" name="repPrecipitationMaps"/> 
 	 <setoption choice="0" name="repRainMaps"/>
         <setoption choice="0" name="repSnowMaps"/>
-        <setoption choice="0" name="repSnowCoverMaps"/>
-        <setoption choice="0" name="repSnowMeltMaps"/>
-        <setoption choice="0" name="repThetaMaps"/>
+        <setoption choice="" name="repSnowCoverMaps"/>
+        <setoption choice="1" name="repSnowMeltMaps"/>
+        <setoption choice="1" name="repThetaMaps"/>
         <setoption choice="0" name="repThetaForestMaps"/>
         <setoption choice="0" name="repThetaIrrigationMaps"/>
-        <setoption choice="0" name="repLZMaps"/>
-        <setoption choice="0" name="repUZMaps"/>
+        <setoption choice="1" name="repLZMaps"/>
+        <setoption choice="1" name="repUZMaps"/>
         <setoption choice="0" name="repGwPercUZLZMaps"/>
         <setoption choice="1" name="repE2O1"/>
         <setoption choice="0" name="repE2O2"/>
@@ -2239,7 +2239,7 @@ Clone map
                 **************************************************************
             </comment>
 
-            <textvar name="LZAvInflowMap" value="$(PathOut)/lzavin">
+            <textvar name="LZAvInflowMap" value="$(PathInit)/lzavin">
                 <comment>
                     NOTE DD: The name of the lzavin files MUST contain a dot . because 
                     the add1.py/writenet function uses the dot to distinguish whether
@@ -2253,7 +2253,7 @@ Clone map
                 </comment>
             </textvar>
 
-            <textvar name="AvgDis" value="$(PathOut)/avgdis">
+            <textvar name="AvgDis" value="$(PathInit)/avgdis">
                 <comment>
                     $(PathRoot)/maps/avgdis.map
                     $(PathInit)/avgdis.map

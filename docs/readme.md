@@ -39,6 +39,8 @@ In more detail, we provide a quick wrap up on the process representations in LIS
 | Preferential (Bypass) Flow | Power Function of Relative Saturation | Preferential flow water is limited by available infiltration water | *PowerPrefFlow* (shape parameter) |
 | Groundwater | Lower & Upper Zone Linear Reservoirs | Upper reservoir acts as fast and Lower reservoir as slowe responding components; Percolation between both reservoirs considered; Groundwater loss outside the catchment from Lower zone possible | *GwPercValue* (Max. percolation between layers) <br> *LowerZoneTimeConstant* (Recession constant upper zone) <br> *UpperZoneTimeConstant* (Recession constant lower zone) <br> *GwLoss* (Max. loss lower layer) |
 | Surface Runoff Routing | Kinematic Wave | 4-point implicit finite-difference solution; momentum simplified (S0 = Sf) | — |
+| Surface Runoff Routing | Kinematic Wave | 4-point implicit finite-difference solution; momentum simplified (S0 = Sf) | — |
+
 
 
 
