@@ -97,7 +97,7 @@
 	 <setoption choice="0" name="repPrecipitationMaps"/> 
 	 <setoption choice="0" name="repRainMaps"/>
         <setoption choice="0" name="repSnowMaps"/>
-        <setoption choice="" name="repSnowCoverMaps"/>
+        <setoption choice="1" name="repSnowCoverMaps"/>
         <setoption choice="1" name="repSnowMeltMaps"/>
         <setoption choice="1" name="repThetaMaps"/>
         <setoption choice="0" name="repThetaForestMaps"/>
