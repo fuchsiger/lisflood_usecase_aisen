@@ -161,7 +161,7 @@
             </comment>
             <textvar name="OutputMapsDataType" value="float32" />            
 
-            <textvar name="PathRoot" value="/storage/schafti/Documents/01_Hydrology/01_Lisflood/00_SourceCode/01_Playground/01_Test_Usecase/create_submodel_7859/7859_testing">
+            <textvar name="PathRoot" value="../">
                 <comment>
                     Root directory 
                 </comment>
@@ -218,13 +218,13 @@
             <textvar name="proj4_params" value="+proj=laea +lat_0=52 +lon_0=10 +x_0=4321000 +y_0=3210000 +ellps=GRS80 +units=m +no_defs">
             </textvar>
 
-            <textvar name="PathOut" value="/home/schafti/Documents/01_Hydrology/01_Lisflood/00_SourceCode/01_Playground/01_Test_Usecase/create_submodel_7859/7859_testing/out/calib_mc/run_0010">
+            <textvar name="PathOut" value="../out/calib_mc/run_0010">
                 <comment>
                     Output path
                 </comment>
             </textvar>
 
-            <textvar name="PathInit" value="/home/schafti/Documents/01_Hydrology/01_Lisflood/00_SourceCode/01_Playground/01_Test_Usecase/create_submodel_7859/7859_testing/out/calib_mc/run_0010">
+            <textvar name="PathInit" value="../out/calib_mc/run_0010">
                 <comment>
                     Path of the initial value maps e.g. lzavin.map
                 </comment>
@@ -345,7 +345,7 @@
                 </comment>
             </textvar>
 
-            <textvar name="StepStart" value="02/01/1996 00:00">
+            <textvar name="StepStart" value="01/02/1996 00:00">
                 <comment>
                     Number of first time step in simulation
                 </comment>
@@ -427,7 +427,7 @@
                 </comment>
             </textvar>
 
-            <textvar name="LowerZoneTimeConstant" value="70.17201825926489">
+            <textvar name="LowerZoneTimeConstant" value="61.68613812384663">
                 <comment>
                     default: 100
                     $(PathParams)/params_LowerZoneTimeConstant.nc
@@ -504,7 +504,7 @@
                 </comment>
             </textvar>
 
-            <textvar name="CalChanMan2" value="3.899980123443719">
+            <textvar name="CalChanMan2" value="%CalChanMan2">
                 <comment>
                     default: 3.0
                     $(PathParams)/params_CalChanMan2.nc
@@ -512,7 +512,7 @@
                 </comment>
             </textvar>
             
-           <textvar name="CalChanMan3" value="1.0">
+           <textvar name="CalChanMan3" value="3.899980123443719">
             <comment>
               default: 3.0 [-]
               $(PathParams)/params_CalChanMan3

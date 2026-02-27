@@ -174,7 +174,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>2) Model Initialization Run</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="3_Run.html"><strong>3) Model Run</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="4_Calibration_MC.html"><strong>4) Monte Carlo Calibration Example</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="Excursus_Initialization.html"><strong>Excursos) Model Initialization Run</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Excursus_Initialization.html"><strong>Excursus) Model Initialization Run</strong></a></li>
 </ul>
 
     </div>
@@ -352,7 +352,7 @@ In detail, the <em>Initialization Run</em> aims to produce the required files of
 <section id="initialization-settings">
 <h2><strong>2) Initialization Settings</strong><a class="headerlink" href="#initialization-settings" title="Permalink to this heading">#</a></h2>
 <p>First we will have a brief look at the settings file that is needed for the initialization and the corresponding setup we can find inside.<br>
-LISFLOOD usually works with 2 standalone settings.xml files, one for the a<em>Actual Run</em> &amp; one for the <em>Initialization Run</em>.
+LISFLOOD usually works with 2 standalone settings.xml files, one for the <em>Actual Run</em> &amp; one for the <em>Initialization Run</em>.
 In our example we find the files in <strong><code class="docutils literal notranslate"><span class="pre">/settings</span></code></strong>, in which we have:</p>
 <ul class="simple">
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">Settings_PreRun.xml</span></code></strong>: the settings file prepared and used for the <em>Initialization Run</em> (this exercise)</p></li>
@@ -471,16 +471,16 @@ In our example we find the files in <strong><code class="docutils literal notran
 <li><p>It is important that you set the <strong><code class="docutils literal notranslate"><span class="pre">InitLisflood</span></code></strong> setting to 1 so that LISFLOOD detects the run as <em>Initialization Run</em>.</p></li>
 <li><p>The general settings block is likely straightforward as it allows you to set the simulation period, time steps, output and input paths.</p>
 <ul>
-<li><p>Note for example that LISFLOOD uses an “End of Timestep” convention which is why you might notice that the the run is set from <strong><code class="docutils literal notranslate"><span class="pre">02/01/1975</span></code></strong> to <strong><code class="docutils literal notranslate"><span class="pre">01/01/2024</span></code></strong> which represents the start at 1st of January 1975 and the end of the simulation at the 31st of December 2024.</p></li>
+<li><p>Note for example that LISFLOOD uses an “End of Timestep” convention which is why you might notice that the run is set from <strong><code class="docutils literal notranslate"><span class="pre">02/01/1975</span></code></strong> to <strong><code class="docutils literal notranslate"><span class="pre">01/01/2024</span></code></strong> which represents the start at 1st of January 1975 and the end of the simulation at the 31st of December 2024.</p></li>
 <li><p>Nevertheless, don’t forget to specify the location of the average lower zone inflow map (<strong><code class="docutils literal notranslate"><span class="pre">LZAvInflowMap</span></code></strong>).</p></li>
-<li><p>Analogously, we also create maps (in this case in the output folder) that indicate the average seepage from the upper to the lower soil layer (layer 2 to layer 3), indicated as <strong><code class="docutils literal notranslate"><span class="pre">SeepTopToSubBAverage...</span></code></strong> . Please note that these maps are quite important, for instance, the <strong><code class="docutils literal notranslate"><span class="pre">.end.nc</span></code></strong> maps refer to the last time step of the <em>Initialization Run</em>, which has the same simulation period is the <em>Actual Run</em> here! Of course it would not make sense to later use this as initial value of the <em>Actual Run</em> (due to a multi-year gap), however, this value is used for the calculation of the <strong><code class="docutils literal notranslate"><span class="pre">SeepTopToSubBAverage</span></code></strong> maps.</p></li>
+<li><p>Analogously, we also create maps (in this case in the output folder) that indicate the average seepage from the upper to the lower soil layer (layer 2 to layer 3), indicated as <strong><code class="docutils literal notranslate"><span class="pre">SeepTopToSubBAverage...</span></code></strong> . Please note that these maps are quite important, for instance, the <strong><code class="docutils literal notranslate"><span class="pre">.end.nc</span></code></strong> maps refer to the last time step of the <em>Initialization Run</em>, which has the same simulation period as the <em>Actual Run</em> here! Of course it would not make sense to later use this as initial value of the <em>Actual Run</em> (due to a multi-year gap), however, this value is used for the calculation of the <strong><code class="docutils literal notranslate"><span class="pre">SeepTopToSubBAverage</span></code></strong> maps.</p></li>
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">NumDaysSpinUp</span></code></strong> might seem counter-intuitive for some hydrological modellers as this is often the equivalent to the pre run we are conducting here. Why do we then have both in LISFLOOD, a pre run and a Spin Up? As we calculate average values (e.g. lzavin, seeptoptosub…), the spin-up period is excluded to avoid influencing the steady-state statistics that we want for a proper initialization (e.g., extreme outliers in the beginning could lead to some statistical contamination). It is only actively used in the <em>Initialization Run</em>! In the <em>Actual Run</em> it has no impact, however, in GloFAS we usually discard the Spin Up anyway from the analysis since in the <em>Actual Model Run</em>, we still have to initialise/fill the surface waters (streams, reservoirs, lakes) that might take some time, especially in the case of larger reservoirs and lakes.</p></li>
 </ul>
 </li>
 <li><p>In addition, there is a dedicated block that is used to define and determine the initial conditions of LISFLOOD.</p>
 <ul>
 <li><p>You might notice different values there: <strong><code class="docutils literal notranslate"><span class="pre">0,</span> <span class="pre">1</span> <span class="pre">and</span> <span class="pre">-9999</span></code></strong></p></li>
-<li><p>0 just indicates that the indicated storage (state variable) will start empty, while a value of 1 bsaically is used for <strong><code class="docutils literal notranslate"><span class="pre">DSLR</span></code></strong> only, which refers to “days since last rainfall”.</p></li>
+<li><p>0 just indicates that the indicated storage (state variable) will start empty, while a value of 1 is basically used for <strong><code class="docutils literal notranslate"><span class="pre">DSLR</span></code></strong> only, which refers to “days since last rainfall”.</p></li>
 <li><p>However, most of the initialization values are -9999 that can be seen as a “bogus” value or flag that LISFLOOD internally initializes the corresponding variable. <br>
 To provide an example: For <strong><code class="docutils literal notranslate"><span class="pre">ThetaXX</span></code></strong> variables, the initial soil moisture is set to field capacity.<br>
 Other examples are <strong><code class="docutils literal notranslate"><span class="pre">PrevDischarge</span></code></strong> and <strong><code class="docutils literal notranslate"><span class="pre">TotalCrossSectionAreaInitValue</span></code></strong>, where a value of -9999 indicates: initial discharge and water level in the channels at half of bankfull depth.<br>
@@ -499,7 +499,7 @@ This should look as follows:</p>
 lisflood<span class="w"> </span>Settings_PreRun.xml
 </pre></div>
 </div>
-<p>When the run was successfull, you should have a <strong><code class="docutils literal notranslate"><span class="pre">lzavin.nc</span></code></strong> files in your <strong><code class="docutils literal notranslate"><span class="pre">Initial</span></code></strong> folder as described before and some <strong><code class="docutils literal notranslate"><span class="pre">.end.nc</span></code></strong> files should have been created.<br>
+<p>When the run was successful, you should have a <strong><code class="docutils literal notranslate"><span class="pre">lzavin.nc</span></code></strong> files in your <strong><code class="docutils literal notranslate"><span class="pre">Initial</span></code></strong> folder as described before and some <strong><code class="docutils literal notranslate"><span class="pre">.end.nc</span></code></strong> files should have been created.<br>
 We will now check how the steady-state percolation values in this file look!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">

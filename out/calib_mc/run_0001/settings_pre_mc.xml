@@ -428,7 +428,7 @@
                 </comment>
             </textvar>
 
-            <textvar name="LowerZoneTimeConstant" value="952.6857341535195">
+            <textvar name="LowerZoneTimeConstant" value="695.9928714228422">
                 <comment>
                     default: 100
                     $(PathParams)/params_LowerZoneTimeConstant.nc
@@ -505,7 +505,7 @@
                 </comment>
             </textvar>
 
-            <textvar name="CalChanMan2" value="3.20501755284444">
+            <textvar name="CalChanMan2" value="%CalChanMan2">
                 <comment>
                     default: 3.0
                     $(PathParams)/params_CalChanMan2.nc
@@ -513,7 +513,7 @@
                 </comment>
             </textvar>
             
-           <textvar name="CalChanMan3" value="1.0">
+           <textvar name="CalChanMan3" value="3.20501755284444">
             <comment>
               default: 3.0 [-]
               $(PathParams)/params_CalChanMan3

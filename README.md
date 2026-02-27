@@ -4,7 +4,7 @@
 
 This repository hosts a use case for the LISFLOOD model (v5 - used for GloFASv5 and EFASv6). The purpose of this use case is to provide a practical example of setting up and running LISFLOOD for a natural catchment in South America, specifically the Río Aisén in Chile. The use case includes all the static input maps, meteorological forcings, and LISFLOOD setting files needed to run the simulation.</br>
 The [model documentation](https://ec-jrc.github.io/lisflood-model/) provides a detailed description of the modelling of the hydrological processes; the [user guide](https://ec-jrc.github.io/lisflood-code/) provides the guidelines for the set-up of a simulation.</br>
-And the detailled use case documentation (this repo), which is recommend to check, can be accessed[here](https://fuchsiger.github.io/lisflood_usecase_aisen).
+And the detailed use case documentation (this repo), which is recommend to check, can be accessed [here](https://fuchsiger.github.io/lisflood_usecase_aisen).
 
 
 **NOTE about the static maps made available by this repository**: all the static maps of the Río Aisén catchment were produced following the [updated protocol](https://ec-jrc.github.io/lisflood-code/4_Static-Maps-introduction/) for the preparation of static maps. This protocol relies on the most recent (up to 2021) research findings and data sets (both remote sensing data sets and in-situ measurements).
@@ -46,9 +46,9 @@ For general information on LISFLOOD input files see [here](https://ec-jrc.github
 Okay let's get started. Follow the steps below to execute the use case on your PC: 
 1. If you haven't installed LISFLOOD yet (and don't use our *.yml*), please do that first. You find the model [here](https://github.com/ec-jrc/lisflood-code) and also the [installation instructions](https://ec-jrc.github.io/lisflood-code/3_step2_installation/). Note: if possible, please install it on a LINUX system as it has shown to work more reliably on that system and as we do not provide support for Windows. 
 2. Once you have completed step 1, download all the files belonging to the Río Aisén use case to your local drive, please keep the folder structure as it is in the repository as LISFLOOD will expect them like that in our examples. 
-3. In general the paths in the setting files should be relative paths and thus work universally, however, please double check and on demand adapt the path names (so they fit to your local drives): *PathRoot*, *MaskMap*, *PathRoot*, *PathParams*, and *PathTables*. Please remember to do that for all settings files as else you will run into problems very soon (In fact the paths are one of the most recurring mistake).
+3. In general the paths in the setting files should be relative paths and thus work universally, however, please double check and on demand adapt the path names (so they fit your local drives): *PathRoot*, *MaskMap*, *PathRoot*, *PathParams*, and *PathTables*. Please remember to do that for all settings files as else you will run into problems very soon (In fact the paths are one of the most recurring mistakes).
 TIP: You can use *$(ProjectDir)* or *$(ProjectPath)* as built-in variable to use in this XML settings, to refer to the project folder.
-4. Prove that you have a folder called *out* in the same parent folder on your local drive, to provide LISFLOOD with a designated space to save your model output.
+4. Make sure you have a folder called *out* in the same parent folder on your local drive, to provide LISFLOOD with a designated space to save your model output.
 5. Open a command window and execute LISFLOOD. First you have to do the pre-run to initialize the model, for that you have to execute LISFLOOD with the following settings file: *Settings_PreRun.xml*. Once that is completed, check the *out* folder, you should find a file called *lzavin* in there. The file should also be located in the *initial* folder, so you can use the one that already exists there or replace it with the one you created. If that's the case you can launch the actual LISFLOOD run by executing LISFLOOD with the *Settings_Run.xml* settings file. This should produce a file called *dis.tss* in your *out* folder. The *dis.tss* contains the simulated discharge at the outlet point at Puerto Aisén.
 6. Compare your output with the expected results, e.g. the observations located in *station*, to verify the correct installation and running of LISFLOOD.
 
@@ -107,8 +107,10 @@ In more detail, we provide a quick wrap up on the process representations in LIS
 | Snow Melt | Degree-day Approach | Rain-on-snow impacts included; Melt-factor is seasonally varying; snow fall and melt threshold temp. set to 1°C | *SnowMeltCoef* (Degree-day factor) |
 | Soil Moisture Redistribution | Iterative vertical redistribution based on soil moisture gradients | Uses conceptual Darcy/van Genuchten relationships to define potential fluxes | - |
 | Preferential (Bypass) Flow | Power Function of Relative Saturation | Preferential flow water is limited by available infiltration water | *PowerPrefFlow* (shape parameter) |
-| Groundwater | Lower & Upper Zone Linear Reservoirs | Upper reservoir acts as fast and Lower reservoir as slow responding components; Percolation between both reservoirs considered; Groundwater loss outside the catchment from Lower zone possible | *GwPercValue* (Max. percolation between layers) <br> *LowerZoneTimeConstant* (Recession constant upper zone) <br> *UpperZoneTimeConstant* (Recession constant lower zone) <br> *GwLoss* (Max. loss lower layer) |
+| Groundwater | Lower & Upper Zone Linear Reservoirs | Upper reservoir acts as fast and Lower reservoir as slow responding components; Percolation between both reservoirs considered; Groundwater loss outside the catchment from Lower zone possible | *GwPercValue* (Max. percolation between layers) <br> *LowerZoneTimeConstant* (Recession constant lower zone) <br> *UpperZoneTimeConstant* (Recession constant upper zone) <br> *GwLoss* (max. loss lower layer) |
 | Surface Runoff Routing | Kinematic Wave | 4-point implicit finite-difference solution; momentum simplified (S0 = Sf) | — |
+| Sub-surface Routing | Kinematic Wave | Refers only to LZ & UZ (groundwater) water **not** soil water; chanell pixel assigned via drainage network | — |
+| Channel Routing | Kinematic Wave or Muskingum-Cunge-Todini (MCT) | Kinematic wave for higher slopes and for flat areas MCT; Pixels are assigned beforehand to what routing method is used; 4-point implicit finite-difference solution | *CalChanMan1* & *CalChanMan3* |
 
 ## Acknowledgements
 

@@ -174,7 +174,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="2_Initialization.html"><strong>2) Model Initialization Run</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="3_Run.html"><strong>3) Model Run</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="4_Calibration_MC.html"><strong>4) Monte Carlo Calibration Example</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="Excursus_Initialization.html"><strong>Excursos) Model Initialization Run</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Excursus_Initialization.html"><strong>Excursus) Model Initialization Run</strong></a></li>
 </ul>
 
     </div>
@@ -363,7 +363,7 @@ The example shown here cuts <strong>one input map</strong> to our river basin, b
 <code class="docutils literal notranslate"><span class="pre">upArea_unclipped.nc</span></code> to the location of our outlet gauge stored in <code class="docutils literal notranslate"><span class="pre">outlet.txt</span></code>.<br />
 Both files are located in the <strong><code class="docutils literal notranslate"><span class="pre">station/</span></code></strong> folder, while the upstream area file is found under <strong><code class="docutils literal notranslate"><span class="pre">maps/</span></code></strong>.</p>
 <hr class="docutils" />
-<p>However, we will first have a look atthe original unclipped upstream area file and outlet location using Python.</p>
+<p>However, we will first have a look at the original unclipped upstream area file and outlet location using Python.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
@@ -401,7 +401,7 @@ Both files are located in the <strong><code class="docutils literal notranslate"
 <p>As we can see, the drainage network and especially the three main contributing rivers within the basin get visible.
 We also see that the original map reflects a rectangular bounding box rather than a basin-clipped version, which is generally fine,
 however, for this exercise we will cut the map to the basin that belongs to our outlet point. <br>
-Thus, rivers which are visible but do not contribtue to the outlet will be removed now.</p>
+Thus, rivers which are visible but do not contribute to the outlet will be removed now.</p>
 <hr class="docutils" />
 <p>For this we will use the <strong><code class="docutils literal notranslate"><span class="pre">cutmaps.sh</span></code></strong> script with the following settings (how it should look):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>

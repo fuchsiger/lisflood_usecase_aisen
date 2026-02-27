@@ -1,10 +1,10 @@
 ![EU Banner](images/eu_banner.png)
 
-LISFLOOD is a spatially distributed, semi-physical hydrological rainfall-runoff model that has been developed by the Joint Research Centre (JRC) of the European Commission in late 90ies. Since then LISFLOOD has been applied to a wide range of applications such as all kind of water resourses assessments looking at e.g. the effects of climate and land-use change as well as river regulation measures. Its most prominent application is probably within the [European Flood Awareness System](https://www.efas.eu/) (EFAS) operated under [Copernicus Emergency Management Service](https://emergency.copernicus.eu/) (EMS).
+LISFLOOD is a spatially distributed, semi-physical hydrological rainfall-runoff model that has been developed by the Joint Research Centre (JRC) of the European Commission in late 1990s. Since then LISFLOOD has been applied to a wide range of applications such as all kind of water resourses assessments looking at e.g. the effects of climate and land-use change as well as river regulation measures. Its most prominent application is probably within the [European Flood Awareness System](https://www.efas.eu/) (EFAS) operated under [Copernicus Emergency Management Service](https://emergency.copernicus.eu/) (EMS).
 
-It’s wide applicability is due to its modular structure as well as its temporal and spatial flexibility. The model can be extended with additional modules when need arises, to satisfy the new target objective. In that sense it can be extended to include anything from a better representation of a particular hydrological flow to the implementation of anthropogenic-influenced processes. At the same time the model has been designed to be applied across a wide range of spatial and temporal scales. LISFLOOD is grid-based, and the EFAS (Europe) and GloFAS (Globe) applications have employed grid cells of 1 arcmin and 3 arcmin, respectively. Long-term water balance can be simulated (e.g., daily time step), as well as individual flood events (using hourly time intervals, or even smaller).
+Its wide applicability is due to its modular structure as well as its temporal and spatial flexibility. The model can be extended with additional modules when need arises, to satisfy the new target objective. In that sense it can be extended to include anything from a better representation of a particular hydrological flow to the implementation of anthropogenic-influenced processes. At the same time the model has been designed to be applied across a wide range of spatial and temporal scales. LISFLOOD is grid-based, and the EFAS (Europe) and GloFAS (Globe) applications have employed grid cells of 1 arcmin and 3 arcmin, respectively. Long-term water balance can be simulated (e.g., daily time step), as well as individual flood events (using hourly time intervals, or even smaller).
 
-All output can be written as grids, or time series at user-defined points or areas. The user has complete control over how output is written, thus minimising any waste of disk space or CPU time. Regardless of its deployment in the operational flood forecast, LISFLOOD can be used to provide all kind of hydrological rate and state variables, such as ET, snowmelt, snow water equivalent or soil moisture. 
+All output can be written as grids, or time series at user-defined points or areas. The user has complete control over how output is written, thus minimising any waste of disk space or CPU time. Regardless of its deployment in the operational flood forecast, LISFLOOD can be used to provide all kinds of hydrological rate and state variables, such as ET, snowmelt, snow water equivalent or soil moisture. 
 
 Go to [Lisflood OS page](https://ec-jrc.github.io/lisflood/) for more information. Other useful resources:
 
@@ -20,19 +20,19 @@ Go to [Lisflood OS page](https://ec-jrc.github.io/lisflood/) for more informatio
 # **LISFLOOD Use Case - Río Aisén, West Patagonia, Chile**
 
 This use case intends to introduce the basic mechanics of the hydrological model [LISFLOOD](https://github.com/ec-jrc/lisflood-code/).<br>
-The example will guide users through a set of exercises structured in X jupyter notebooks and focus from preprocessing and model setup to calibration.<br>
-The notebooks are structured as followed:
+The example will guide users through a set of exercises structured in several jupyter notebooks and focus from preprocessing and model setup to calibration.<br>
+The notebooks are structured as follows:
 
 1. **Catchment Characteristics** (*0_Catchment.ipynb*)
 2. **Preprocessing** (*1_Preprocess.ipynb*)
 3. **Initialization**
    1. Model Initialization (*2_Initialization.ipynb*)
-   2. Excursus: Initialization Details (*Excursos_Initialization.ipynb*)
+   2. Excursus: Initialization Details (*Excursus_Initialization.ipynb*)
 4. **Model Run** (*3_Run.ipynb*)
 5. **Calibration (simple)** (*4_Calibration_MC.ipynb*)
 
 <br>
-The test basin of the use case is located in Chile, more precisely in western Patagonia and serves as an untouched river basin particularly suitable to explore the basic functionalities and opportunities of LISFLOOD. The river under investigation is the Rio Aisén that originates from the two headwater streams Río Mañihuales and Río Simpson and has a basin size of around 11,400 km². The river terminates in Puerto Aisén and has a pluvial flow regime with minor glaciological and nival features. Elevation in the catchment goes up to more than 2,000 m. <br>
+The test basin of the use case is located in Chile, more precisely in western Patagonia and serves as an untouched river basin particularly suitable to explore the basic functionalities and opportunities of LISFLOOD. The river under investigation is the Rio Aisén that originates from the two headwater streams Río Mañihuales and Río Simpson and has a basin size of around 11,400 km². The river terminates in Puerto Aisén and has a pluvio-nival flow regime with minor glaciological and nival features. Elevation in the catchment goes up to more than 2,000 m. <br>
 A map of the basin is shown below.<br> 
 
 ![Study Area](images/usecase_map.png)
@@ -56,9 +56,10 @@ In more detail, we provide a quick wrap up on the process representations in LIS
 | Snow Melt | Degree-day Approach | Rain-on-snow impacts included; Melt-factor is seasonally varying; snow fall and melt threshold temp. set to 1°C | *SnowMeltCoef* (Degree-day factor) |
 | Soil Moisture Redistribution | Iterative vertical redistribution based on soil moisture gradients | Uses conceptual Darcy/van Genuchten relationships to define potential fluxes | - |
 | Preferential (Bypass) Flow | Power Function of Relative Saturation | Preferential flow water is limited by available infiltration water | *PowerPrefFlow* (shape parameter) |
-| Groundwater | Lower & Upper Zone Linear Reservoirs | Upper reservoir acts as fast and Lower reservoir as slowe responding components; Percolation between both reservoirs considered; Groundwater loss outside the catchment from Lower zone possible | *GwPercValue* (Max. percolation between layers) <br> *LowerZoneTimeConstant* (Recession constant upper zone) <br> *UpperZoneTimeConstant* (Recession constant lower zone) <br> *GwLoss* (Max. loss lower layer) |
+| Groundwater | Lower & Upper Zone Linear Reservoirs | Upper reservoir acts as fast and Lower reservoir as slow responding components; Percolation between both reservoirs considered; Groundwater loss outside the catchment from Lower zone possible | *GwPercValue* (Max. percolation between layers) <br> *LowerZoneTimeConstant* (Recession constant lower zone) <br> *UpperZoneTimeConstant* (Recession constant upper zone) <br> *GwLoss* (max. loss lower layer) |
 | Surface Runoff Routing | Kinematic Wave | 4-point implicit finite-difference solution; momentum simplified (S0 = Sf) | — |
-| Surface Runoff Routing | Kinematic Wave | 4-point implicit finite-difference solution; momentum simplified (S0 = Sf) | — |
+| Sub-surface Routing | Kinematic Wave | Refers only to LZ & UZ (groundwater) water **not** soil water; chanell pixel assigned via drainage network | — |
+| Channel Routing | Kinematic Wave or Muskingum-Cunge-Todini (MCT) | Kinematic wave for higher slopes and for flat areas MCT; Pixels are assigned beforehand to what routing method is used; 4-point implicit finite-difference solution | *CalChanMan1* & *CalChanMan3* |
 
 
 

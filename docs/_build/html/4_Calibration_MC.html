@@ -65,7 +65,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = '4_Calibration_MC';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Excursos) Model Initialization Run" href="Excursus_Initialization.html" />
+    <link rel="next" title="Excursus) Model Initialization Run" href="Excursus_Initialization.html" />
     <link rel="prev" title="3) Model Run" href="3_Run.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -174,7 +174,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="2_Initialization.html"><strong>2) Model Initialization Run</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="3_Run.html"><strong>3) Model Run</strong></a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>4) Monte Carlo Calibration Example</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="Excursus_Initialization.html"><strong>Excursos) Model Initialization Run</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Excursus_Initialization.html"><strong>Excursus) Model Initialization Run</strong></a></li>
 </ul>
 
     </div>
@@ -352,7 +352,7 @@ document.write(`
 <hr class="docutils" />
 <p>This use case intends to introduce the basic mechanics of the hydrological model <a class="reference external" href="https://github.com/ec-jrc/lisflood-code/">LISFLOOD</a>.</br>
 This notebook demonstrates a simple Monte Carlo-based calibration for LISFLOOD. </br>
-It generates N random parameter sets within defined bounds and runs the model for each set.</br>
+It generates <em>N</em> random parameter sets within defined bounds and runs the model for each set.</br>
 In the official GloFAS and EFAS versions, the calibration is of course not done with a simple random sampling, but a genetic algorithm called DEAP is used (see <a class="reference external" href="https://www.jmlr.org/papers/volume13/fortin12a/fortin12a.pdf">Fortin et al., 2012</a>).</br></p>
 <ul class="simple">
 <li><p>Technical details of the calibration tool itself can be found <a class="reference external" href="https://github.com/ec-jrc/lisflood-calibration">here</a>.</p></li>
@@ -363,8 +363,8 @@ In the official GloFAS and EFAS versions, the calibration is of course not done 
 <section id="parameters-and-their-bounds">
 <h2>Parameters and their bounds<a class="headerlink" href="#parameters-and-their-bounds" title="Permalink to this heading">#</a></h2>
 <p>In the following we will quickly provide an overview about LISFLOOD’s main calibration parameter.</br>
-Mein calibration parameters here refers to the fact that those are (some) of the ones used in the official GloFAS and EFAS calibration strategies.</br>
-However, as users potentially have noticed already throughout the work with the settings files, there are plenty of other parameters that c ould be changed. <br>
+Main calibration parameters here refers to the fact that those are (some) of the ones used in the official GloFAS and EFAS calibration strategies.</br>
+However, as users potentially have noticed already throughout the work with the settings files, there are plenty of other parameters that could be changed. <br>
 In a snow-affected catchment like the Aisen, people might want more control than just relying on the degree-day factor (<em>SnowMeltCoef</em>) and for example also adjust the melt temperature itself, which is not touched in the official GloFAS and EFAS calibrations.</p>
 <table class="table">
 <thead>
@@ -424,25 +424,19 @@ In a snow-affected catchment like the Aisen, people might want more control than
 <td class="text-right"><p>1</p></td>
 <td class="text-right"><p>4.49689</p></td>
 </tr>
-<tr class="row-even"><td><p>CalChanMan2</p></td>
+<tr class="row-even"><td><p>CalChanMan3</p></td>
 <td class="text-right"><p>0.5</p></td>
 <td class="text-right"><p>5</p></td>
-<td class="text-right"><p>1</p></td>
-<td class="text-right"><p>1</p></td>
-</tr>
-<tr class="row-odd"><td><p>CalChanMan3</p></td>
-<td class="text-right"><p>0.5</p></td>
-<td class="text-right"><p>5</p></td>
-<td class="text-right"><p>1</p></td>
+<td class="text-right"><p>3</p></td>
 <td class="text-right"><p>1</p></td>
 </tr>
-<tr class="row-even"><td><p>GwLoss</p></td>
+<tr class="row-odd"><td><p>GwLoss</p></td>
 <td class="text-right"><p>0</p></td>
 <td class="text-right"><p>0.5</p></td>
 <td class="text-right"><p>0</p></td>
 <td class="text-right"><p>0.0866118</p></td>
 </tr>
-<tr class="row-odd"><td><p>TransSub</p></td>
+<tr class="row-even"><td><p>TransSub</p></td>
 <td class="text-right"><p>0</p></td>
 <td class="text-right"><p>0.12</p></td>
 <td class="text-right"><p>0</p></td>
@@ -710,14 +704,14 @@ The simulation period is set just 5 years including a 3 years warm-up (1975 - 19
 <span class="c1"># (name, min_value, max_value)</span>
 <span class="n">PARAM_BOUNDS</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;UpperZoneTimeConstant&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span>
-    <span class="s2">&quot;LowerZoneTimeConstant&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">1000</span><span class="p">),</span>
+    <span class="s2">&quot;LowerZoneTimeConstant&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">730</span><span class="p">),</span>
     <span class="s2">&quot;GwPercValue&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
     <span class="s2">&quot;LZThreshold&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span>
     <span class="s2">&quot;b_Xinanjiang&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
     <span class="s2">&quot;PowerPrefFlow&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
     <span class="s2">&quot;SnowMeltCoef&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">),</span>
     <span class="s2">&quot;CalChanMan1&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
-    <span class="s2">&quot;CalChanMan2&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+    <span class="s2">&quot;CalChanMan3&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
     <span class="s2">&quot;GwLoss&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
     <span class="s2">&quot;TransSub&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">)</span>
 <span class="p">}</span>
@@ -736,14 +730,14 @@ Monte Carlo samples: 10
 
 Parameter bounds:
   UpperZoneTimeConstant: [0.01, 40]
-  LowerZoneTimeConstant: [40, 1000]
+  LowerZoneTimeConstant: [40, 730]
   GwPercValue: [0.01, 2]
   LZThreshold: [0, 30]
   b_Xinanjiang: [0.01, 5]
   PowerPrefFlow: [0.5, 8]
   SnowMeltCoef: [2.5, 6.5]
   CalChanMan1: [0.5, 2]
-  CalChanMan2: [0.5, 5]
+  CalChanMan3: [0.5, 5]
   GwLoss: [0, 0.5]
   TransSub: [0, 0.12]
 </pre></div>
@@ -776,40 +770,40 @@ First 3 parameter sets:
 
 Set 1:
   UpperZoneTimeConstant: 14.9879
-  LowerZoneTimeConstant: 952.6857
+  LowerZoneTimeConstant: 695.9929
   GwPercValue: 1.4667
   LZThreshold: 17.9598
   b_Xinanjiang: 0.7885
   PowerPrefFlow: 1.6700
   SnowMeltCoef: 2.7323
   CalChanMan1: 1.7993
-  CalChanMan2: 3.2050
+  CalChanMan3: 3.2050
   GwLoss: 0.3540
   TransSub: 0.0025
 
 Set 2:
   UpperZoneTimeConstant: 38.7967
-  LowerZoneTimeConstant: 839.1449
+  LowerZoneTimeConstant: 614.3854
   GwPercValue: 0.4326
   LZThreshold: 5.4547
   b_Xinanjiang: 0.9252
   PowerPrefFlow: 2.7818
   SnowMeltCoef: 4.5990
   CalChanMan1: 1.1479
-  CalChanMan2: 1.8105
+  CalChanMan3: 1.8105
   GwLoss: 0.3059
   TransSub: 0.0167
 
 Set 3:
   UpperZoneTimeConstant: 11.6929
-  LowerZoneTimeConstant: 391.7074
+  LowerZoneTimeConstant: 292.7897
   GwPercValue: 0.9176
   LZThreshold: 23.5553
   b_Xinanjiang: 1.0064
   PowerPrefFlow: 4.3568
   SnowMeltCoef: 4.8697
   CalChanMan1: 0.5697
-  CalChanMan2: 3.2340
+  CalChanMan3: 3.2340
   GwLoss: 0.0853
   TransSub: 0.0078
 </pre></div>
@@ -905,7 +899,7 @@ Starting Monte Carlo Calibration (10 runs)
 ============================================================
 
 --- Run 1/10 ---
-  Parameters: UpperZoneTimeConstant=14.99, LowerZoneTimeConstant=952.69, GwPercValue=1.47...
+  Parameters: UpperZoneTimeConstant=14.99, LowerZoneTimeConstant=695.99, GwPercValue=1.47...
 </pre></div>
 </div>
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
@@ -1100,23 +1094,23 @@ Starting Monte Carlo Calibration (10 runs)
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>KGE Results (sorted by KGE):
        run       KGE
-GloFAS_Cal  0.713818
-  run_0010  0.667934
-  run_0009  0.640601
-  run_0008  0.534282
-  run_0007  0.460662
-  run_0005  0.430730
-  run_0003  0.427381
-  run_0006  0.340477
-  run_0001  0.259024
-  run_0002  0.153200
-  run_0004 -0.063888
+GloFAS_Cal  0.713969
+  run_0003  0.034059
+  run_0009  0.023951
+  run_0002  0.023254
+  run_0010  0.017274
+  run_0001  0.004435
+  run_0008 -0.061810
+  run_0006 -0.069593
+  run_0005 -0.084286
+  run_0007 -0.098712
+  run_0004 -0.123779
 
 Best run: GloFAS_Cal with KGE = 0.714
-Mean KGE: 0.415
+Mean KGE: 0.034
 </pre></div>
 </div>
-<img alt="_images/cf96f47b83ce7d1eb7708ce4313fa7c70aeab41ff9ebd1cb6ba888352188f972.png" src="_images/cf96f47b83ce7d1eb7708ce4313fa7c70aeab41ff9ebd1cb6ba888352188f972.png" />
+<img alt="_images/afd93e2037d7f4d2b69cd6e9b16290d8352cd793e5076d3f7be19366105f9f29.png" src="_images/afd93e2037d7f4d2b69cd6e9b16290d8352cd793e5076d3f7be19366105f9f29.png" />
 </div>
 </div>
 </section>
@@ -1141,7 +1135,7 @@ However, let us inspect the worst run, to get an idea what happens there.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/3dfba52b5e13b0457923295209cb80ea9aca1fcac1eb28b8b1b38c6ec5ae8015.png" src="_images/3dfba52b5e13b0457923295209cb80ea9aca1fcac1eb28b8b1b38c6ec5ae8015.png" />
+<img alt="_images/411c1f4904106c07fa15452e8f96a7b5bbe65176cc5253cf90fbae568bddd680.png" src="_images/411c1f4904106c07fa15452e8f96a7b5bbe65176cc5253cf90fbae568bddd680.png" />
 </div>
 </div>
 <p>In the beginning of this notebook we provided the original calibrated GloFAS parameter set for the Aisen River, so let us have a look at the parameter differences that could be responsible for the very smoothed behavior of the bad LISFLOOD simulation.</p>
@@ -1157,7 +1151,7 @@ However, let us inspect the worst run, to get an idea what happens there.</p>
  <span class="s1">&#39;PowerPrefFlow&#39;</span><span class="p">:</span> <span class="mf">1.51084</span><span class="p">,</span>
  <span class="s1">&#39;SnowMeltCoef&#39;</span><span class="p">:</span> <span class="mf">5.10491</span><span class="p">,</span>
  <span class="s1">&#39;CalChanMan1&#39;</span><span class="p">:</span> <span class="mf">4.49689</span><span class="p">,</span>
- <span class="s1">&#39;CalChanMan2&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+ <span class="s1">&#39;CalChanMan3&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
  <span class="s1">&#39;GwLoss&#39;</span><span class="p">:</span> <span class="mf">0.0866118</span><span class="p">,</span>
  <span class="s1">&#39;TransSub&#39;</span><span class="p">:</span> <span class="mf">0.000135783</span>
 <span class="p">}</span>
@@ -1187,14 +1181,14 @@ However, let us inspect the worst run, to get an idea what happens there.</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>UpperZoneTimeConstant     | Test Set:   37.95593 | GloFAS Cal:    9.04020 | Diff:   28.91573 | %Diff:   319.86%
-LowerZoneTimeConstant     | Test Set:  967.00675 | GloFAS Cal:   40.00000 | Diff:  927.00675 | %Diff:  2317.52%
+LowerZoneTimeConstant     | Test Set:  706.28610 | GloFAS Cal:   40.00000 | Diff:  666.28610 | %Diff:  1665.72%
 GwPercValue               | Test Set:    1.61871 | GloFAS Cal:    0.87876 | Diff:    0.73995 | %Diff:    84.20%
 LZThreshold               | Test Set:    9.13841 | GloFAS Cal:    5.65075 | Diff:    3.48766 | %Diff:    61.72%
 b_Xinanjiang              | Test Set:    0.49738 | GloFAS Cal:    3.09004 | Diff:   -2.59266 | %Diff:   -83.90%
 PowerPrefFlow             | Test Set:    5.63175 | GloFAS Cal:    1.51084 | Diff:    4.12091 | %Diff:   272.76%
 SnowMeltCoef              | Test Set:    4.26061 | GloFAS Cal:    5.10491 | Diff:   -0.84430 | %Diff:   -16.54%
 CalChanMan1               | Test Set:    0.68306 | GloFAS Cal:    4.49689 | Diff:   -3.81383 | %Diff:   -84.81%
-CalChanMan2               | Test Set:    2.72830 | GloFAS Cal:    1.00000 | Diff:    1.72830 | %Diff:   172.83%
+CalChanMan3               | Test Set:    2.72830 | GloFAS Cal:    1.00000 | Diff:    1.72830 | %Diff:   172.83%
 GwLoss                    | Test Set:    0.01719 | GloFAS Cal:    0.08661 | Diff:   -0.06942 | %Diff:   -80.15%
 TransSub                  | Test Set:    0.10912 | GloFAS Cal:    0.00014 | Diff:    0.10898 | %Diff: 80262.38%
 </pre></div>
@@ -1252,7 +1246,7 @@ In fact, the best run LZTC is at the lower edge of the allowed range while the U
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><strong>Excursos) Model Initialization Run</strong></p>
+        <p class="prev-next-title"><strong>Excursus) Model Initialization Run</strong></p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
