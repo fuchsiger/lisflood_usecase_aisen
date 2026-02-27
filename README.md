@@ -1,7 +1,11 @@
+[![Jupyter Book](https://img.shields.io/badge/powered--by-Jupyter%20Book-orange)](https://fuchsiger.github.io/lisflood_usecase_aisen)
+
 # Lisflood use case: Río Aisén, West Patagonia, Chile
 
 This repository hosts a use case for the LISFLOOD model (v5 - used for GloFASv5 and EFASv6). The purpose of this use case is to provide a practical example of setting up and running LISFLOOD for a natural catchment in South America, specifically the Río Aisén in Chile. The use case includes all the static input maps, meteorological forcings, and LISFLOOD setting files needed to run the simulation.</br>
-The [model documentation](https://ec-jrc.github.io/lisflood-model/) provides a detailed description of the modelling of the hydrological processes; the [user guide](https://ec-jrc.github.io/lisflood-code/) provides the guidelines for the set-up of a simulation.   
+The [model documentation](https://ec-jrc.github.io/lisflood-model/) provides a detailed description of the modelling of the hydrological processes; the [user guide](https://ec-jrc.github.io/lisflood-code/) provides the guidelines for the set-up of a simulation.</br>
+And the detailled use case documentation (this repo), which is recommend to check, can be accessed[here](https://fuchsiger.github.io/lisflood_usecase_aisen).
+
 
 **NOTE about the static maps made available by this repository**: all the static maps of the Río Aisén catchment were produced following the [updated protocol](https://ec-jrc.github.io/lisflood-code/4_Static-Maps-introduction/) for the preparation of static maps. This protocol relies on the most recent (up to 2021) research findings and data sets (both remote sensing data sets and in-situ measurements).
 
