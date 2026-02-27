@@ -10,12 +10,12 @@ Go to [Lisflood OS page](https://ec-jrc.github.io/lisflood/) for more informatio
 
 | **Project** | **Documentation** | **Source code** |
 | :--- | :--- | :--- |
-| Lisflood | [Model docs](https://ec-jrc.github.io/lisflood-model/) | https://github.com/ec-jrc/lisflood-code (this repository) |
+| Lisflood | [Model docs](https://ec-jrc.github.io/lisflood-model/) | https://github.com/ec-jrc/lisflood-code |
 | | [User guide](https://ec-jrc.github.io/lisflood-code/) | |
 | Lisvap | [Docs](https://ec-jrc.github.io/lisflood-lisvap/) | https://github.com/ec-jrc/lisflood-lisvap |
 | Calibration tool | [Docs](https://ec-jrc.github.io/lisflood-calibration/) | https://github.com/ec-jrc/lisflood-calibration |
 | Lisflood Utilities | | https://github.com/ec-jrc/lisflood-utilities |
-| Lisflood Usecases | | https://github.com/ec-jrc/lisflood-usecases |
+| Lisflood Usecases | | https://github.com/ec-jrc/lisflood-usecases (this repository) |
 
 # **LISFLOOD Use Case - Río Aisén, West Patagonia, Chile**
 
