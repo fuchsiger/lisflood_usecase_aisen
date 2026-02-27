@@ -177,7 +177,7 @@
             </comment>
             <textvar name="OutputMapsDataType" value="float32"/>            
 
-            <textvar name="PathRoot" value= "/storage/schafti/Documents/01_Hydrology/01_Lisflood/00_SourceCode/01_Playground/01_Test_Usecase/create_submodel_7859/7859_testing">
+            <textvar name="PathRoot" value= "../">
                 <comment>
                     Root directory 
                 </comment>
@@ -217,6 +217,7 @@
                     Niger/Lokoja 6.75 7.85 0.45 15.65
                 </comment>
             </textvar>
+
 
             <textvar name="netCDFtemplate" value="$(PathRoot)/maps/elvstd_Global_03min">
                 <comment>

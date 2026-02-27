@@ -1,0 +1,654 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>2) Model Initialization Run &#8212; LISFLOOD - Río Aisén Use Case</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '2_Initialization';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="3) Model Run" href="3_Run.html" />
+    <link rel="prev" title="1) Preprocessing" href="1_Preprocess.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="readme.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/eu_banner.png" class="logo__image only-light" alt="LISFLOOD - Río Aisén Use Case - Home"/>
+    <script>document.write(`<img src="_static/eu_banner.png" class="logo__image only-dark" alt="LISFLOOD - Río Aisén Use Case - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="readme.html">
+                    LISFLOOD Use Case - Río Aisén, West Patagonia, Chile
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="0_Catchment.html"><strong>0) Catchment Overview</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="1_Preprocess.html"><strong>1) Preprocessing</strong></a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>2) Model Initialization Run</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="3_Run.html"><strong>3) Model Run</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="4_Calibration_MC.html"><strong>4) Monte Carlo Calibration Example</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Excursus_Initialization.html"><strong>Excursos) Model Initialization Run</strong></a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/2_Initialization.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>2) Model Initialization Run</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#initialization-settings"><strong>2) Initialization Settings</strong></a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <p><img alt="EU Banner" src="_images/eu_banner.png" /></p>
+<section class="tex2jax_ignore mathjax_ignore" id="model-initialization-run">
+<h1><strong>2) Model Initialization Run</strong><a class="headerlink" href="#model-initialization-run" title="Permalink to this heading">#</a></h1>
+<hr class="docutils" />
+<p>This use case intends to introduce the basic mechanics of the hydrological model <a class="reference external" href="https://github.com/ec-jrc/lisflood-code/">LISFLOOD</a>.
+<br>
+In this exercise, the objective is to conduct a model <em>Initialization Run</em> read and visualize the two created outputs that are important for the <em>Actual Model Run</em> of LISFLOOD. <br>
+In detail, the <em>Initialization Run</em> aims to produce the required files of two rate variables:</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">avgdis.nc</span></code></strong>: a map of the average discharge in the river network.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">lzavin.nc</span></code></strong>: a map of the average inflow into the lower groundwater zone.</p></li>
+</ul>
+<p>As this is a very crucial step, we strongly recommend the users to have a further read <a class="reference external" href="https://ec-jrc.github.io/lisflood-code/3_step5_model-initialisation/">here</a>.</p>
+<p><img alt="EU Banner" src="_images/image_init.png" /></p>
+<section id="initialization-settings">
+<h2><strong>2) Initialization Settings</strong><a class="headerlink" href="#initialization-settings" title="Permalink to this heading">#</a></h2>
+<p>First we will have a brief look at the settings file that is needed for the initialization and the corresponding setup we can find inside.<br>
+LISFLOOD usually works with 2 standalone settings.xml files, one for the a<em>Actual Run</em> &amp; one for the <em>Initialization Run</em>.
+In our example we find the files in <strong><code class="docutils literal notranslate"><span class="pre">/settings</span></code></strong>, in which we have:</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">Settings_PreRun.xml</span></code></strong>: the settings file prepared and used for the <em>Initialization Run</em> (this exercise)</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">Settings_Run.xml</span></code></strong>: the settings file prepared and used for the <em>Actual Run</em> or <em>Calibration Run</em></p></li>
+</ul>
+<hr class="docutils" />
+<p>Let us check the most important settings for the <em>Initialization Run</em>:</p>
+<small>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;lfoptions&gt;</span>
+<span class="w">    </span>#<span class="w"> </span>[...]
+
+<span class="w">    </span>#<span class="w"> </span>INITIALIZATION<span class="w"> </span>RUN
+<span class="w">    </span><span class="nt">&lt;setoption</span><span class="w"> </span><span class="na">choice=</span><span class="s">&quot;1&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;InitLisflood&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;setoption</span><span class="w"> </span><span class="na">choice=</span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;ColdStart&quot;</span><span class="nt">/&gt;</span>
+
+<span class="w">    </span><span class="nt">&lt;setoption</span><span class="w"> </span><span class="na">choice=</span><span class="s">&quot;1&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;repEndMaps&quot;</span><span class="nt">/&gt;</span>
+
+<span class="w">    </span>#<span class="w"> </span>[...]
+<span class="nt">&lt;/lfoptions&gt;</span>
+
+<span class="nt">&lt;lfuser&gt;</span>
+<span class="w">    </span>#<span class="w"> </span>[...]
+
+<span class="w">    </span>#<span class="w"> </span>GENERAL<span class="w"> </span>MODEL<span class="w"> </span>SETUP<span class="w"> </span>RUN
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;PathRoot&quot;</span><span class="w"> </span><span class="na">value=</span><span class="w"> </span><span class="s">&quot;./../7859_testing&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;PathInit&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(PathRoot)/initial&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;CalendarDayStart&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;02/01/1975 00:00&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;StepStart&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;02/01/1975 00:00&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;StepEnd&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;01/01/2024 00:00&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;timestepInit&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;1&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;DtSec&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;86400&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;DtSecChannel&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;14400&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;NumDaysSpinUp&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;1095&quot;</span><span class="nt">&gt;</span>
+
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;LZAvInflowMap&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(PathInit)/lzavin&quot;</span><span class="nt">&gt;</span>
+
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;SeepTopToSubBAverageOtherMap&quot;</span><span class="w"> </span><span class="na">value=</span><span class="w"> </span><span class="s">&quot;$(PathOut)/SeepTopToSubBAverageOtherMap&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;SeepTopToSubBAverageForestMap&quot;</span><span class="w"> </span><span class="na">value=</span><span class="w"> </span><span class="s">&quot;$(PathOut)/SeepTopToSubBAverageForestMap&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;SeepTopToSubBAverageIrrigationMap&quot;</span><span class="w"> </span><span class="na">value=</span><span class="w"> </span><span class="s">&quot;$(PathOut)/SeepTopToSubBAverageIrrigationMap&quot;</span><span class="nt">&gt;</span>
+
+<span class="w">    </span>#<span class="w"> </span>[...]
+
+<span class="w">    </span>#<span class="w"> </span>INITIAL<span class="w"> </span>CONDITIONS
+<span class="w">    </span>#<span class="w"> </span>water<span class="w"> </span>balance
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;OFDirectInitValue&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;0&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;OFOtherInitValue&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;0&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;OFForestInitValue&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;0&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;SnowCoverAInitValue&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;0&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;SnowCoverBInitValue&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;0&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;SnowCoverCInitValue&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;0&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;FrostIndexInitValue&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;0&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;CumIntInitValue&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;0&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;UZInitValue&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(PathOut)/uz.end.nc&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;DSLRInitValue&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;</span>
+
+<span class="w">    </span>#<span class="w"> </span>soil
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;LZInitValue&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;-9999&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;ThetaInit1Value&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(PathOut)/th1.end.nc&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;ThetaInit2Value&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(PathOut)/th2.end.nc&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;ThetaInit3Value&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(PathOut)/th3.end.nc&quot;</span><span class="nt">&gt;</span>
+
+<span class="w">    </span>#<span class="w"> </span>channel
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;TotalCrossSectionAreaInitValue&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;-9999&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;CrossSection2AreaInitValue&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;-9999&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;PrevSideflowInitValue&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;-9999&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;PrevDischarge&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;-9999&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;PrevDischargeAvg&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;-9999&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;PrevCmMCTInitValue&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;-9999&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;PrevDmMCTInitValue&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;-9999&quot;</span><span class="nt">&gt;</span>
+
+<span class="w">    </span>#<span class="w"> </span>lake<span class="w"> </span>(if<span class="w"> </span>simulateLakes<span class="w"> </span>=<span class="w"> </span>1)
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;LakeInitialLevelValue&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;-9999&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;LakePrevInflowValue&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;-9999&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;LakePrevOutflowValue&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;-9999&quot;</span><span class="nt">&gt;</span>
+
+<span class="w">    </span>#<span class="w"> </span>forest
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;CumIntForestInitValue&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;0&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;UZForestInitValue&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;0&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;DSLRForestInitValue&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;ThetaForestInit1Value&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;-9999&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;ThetaForestInit2Value&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;-9999&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;ThetaForestInit3Value&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;-9999&quot;</span><span class="nt">&gt;</span>
+
+<span class="w">    </span>#<span class="w"> </span>irrigation
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;CumIntIrrigationInitValue&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;0&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;UZIrrigationInitValue&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;0&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;DSLRIrrigationInitValue&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;ThetaIrrigationInit1Value&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;-9999&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;ThetaIrrigationInit2Value&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;-9999&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;ThetaIrrigationInit3Value&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;-9999&quot;</span><span class="nt">&gt;</span>
+
+<span class="w">    </span>#<span class="w"> </span>impervious<span class="w"> </span>(sealed)<span class="w"> </span>areas
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;CumIntSealedInitValue&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;0&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span>
+<span class="w">    </span>#<span class="w"> </span>[...]
+<span class="w">    </span>#<span class="w"> </span>end<span class="w"> </span>files<span class="w"> </span>locations<span class="w"> </span>and<span class="w"> </span>names
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;Theta1End&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(PathOut)/th1.end&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;Theta2End&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(PathOut)/th2.end&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;Theta3End&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(PathOut)/th3.end&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;Theta1ForestEnd&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(PathOut)/thf1.end&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;Theta2ForestEnd&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(PathOut)/thf2.end&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;Theta3ForestEnd&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(PathOut)/thf3.end&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;Theta1IrrigationEnd&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(PathOut)/thi1.end&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;Theta2IrrigationEnd&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(PathOut)/thi2.end&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;Theta3IrrigationEnd&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(PathOut)/thi3.end&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;UZEnd&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(PathOut)/uz.end&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;UZForestEnd&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(PathOut)/uzf.end&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;textvar</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;UZIrrigationEnd&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(PathOut)/uzi.end&quot;</span><span class="nt">&gt;</span>
+
+<span class="w">    </span>#<span class="w"> </span>[...]
+<span class="nt">&lt;/lfuser&gt;</span>
+</pre></div>
+</div>
+<p>Let us quickly go through the setting:</p>
+<ul class="simple">
+<li><p>It is important that you set the <strong><code class="docutils literal notranslate"><span class="pre">InitLisflood</span></code></strong> setting to 1 so that LISFLOOD detects the run as <em>Initialization Run</em>.</p></li>
+<li><p>The general settings block is likely straightforward as it allows you to set the simulation period, time steps, output and input paths.</p>
+<ul>
+<li><p>Note for example that LISFLOOD uses an “End of Timestep” convention which is why you might notice that the the run is set from <strong><code class="docutils literal notranslate"><span class="pre">02/01/1975</span></code></strong> to <strong><code class="docutils literal notranslate"><span class="pre">01/01/2024</span></code></strong> which represents the start at 1st of January 1975 and the end of the simulation at the 31st of December 2024.</p></li>
+<li><p>Nevertheless, don’t forget to specify the location of the average lower zone inflow map (<strong><code class="docutils literal notranslate"><span class="pre">LZAvInflowMap</span></code></strong>).</p></li>
+<li><p>Analogously, we also create maps (in this case in the output folder) that indicate the average seepage from the upper to the lower soil layer (layer 2 to layer 3), indicated as <strong><code class="docutils literal notranslate"><span class="pre">SeepTopToSubBAverage...</span></code></strong> . Please note that these maps are quite important, for instance, the <strong><code class="docutils literal notranslate"><span class="pre">.end.nc</span></code></strong> maps refer to the last time step of the <em>Initialization Run</em>, which has the same simulation period is the <em>Actual Run</em> here! Of course it would not make sense to later use this as initial value of the <em>Actual Run</em> (due to a multi-year gap), however, this value is used for the calculation of the <strong><code class="docutils literal notranslate"><span class="pre">SeepTopToSubBAverage</span></code></strong> maps.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">NumDaysSpinUp</span></code></strong> might seem counter-intuitive for some hydrological modellers as this is often the equivalent to the pre run we are conducting here. Why do we then have both in LISFLOOD, a pre run and a Spin Up? As we calculate average values (e.g. lzavin, seeptoptosub…), the spin-up period is excluded to avoid influencing the steady-state statistics that we want for a proper initialization (e.g., extreme outliers in the beginning could lead to some statistical contamination). It is only actively used in the <em>Initialization Run</em>! In the <em>Actual Run</em> it has no impact, however, in GloFAS we usually discard the Spin Up anyway from the analysis since in the <em>Actual Model Run</em>, we still have to initialise/fill the surface waters (streams, reservoirs, lakes) that might take some time, especially in the case of larger reservoirs and lakes.</p></li>
+</ul>
+</li>
+<li><p>In addition, there is a dedicated block that is used to define and determine the initial conditions of LISFLOOD.</p>
+<ul>
+<li><p>You might notice different values there: <strong><code class="docutils literal notranslate"><span class="pre">0,</span> <span class="pre">1</span> <span class="pre">and</span> <span class="pre">-9999</span></code></strong></p></li>
+<li><p>0 just indicates that the indicated storage (state variable) will start empty, while a value of 1 bsaically is used for <strong><code class="docutils literal notranslate"><span class="pre">DSLR</span></code></strong> only, which refers to “days since last rainfall”.</p></li>
+<li><p>However, most of the initialization values are -9999 that can be seen as a “bogus” value or flag that LISFLOOD internally initializes the corresponding variable. <br>
+To provide an example: For <strong><code class="docutils literal notranslate"><span class="pre">ThetaXX</span></code></strong> variables, the initial soil moisture is set to field capacity.<br>
+Other examples are <strong><code class="docutils literal notranslate"><span class="pre">PrevDischarge</span></code></strong> and <strong><code class="docutils literal notranslate"><span class="pre">TotalCrossSectionAreaInitValue</span></code></strong>, where a value of -9999 indicates: initial discharge and water level in the channels at half of bankfull depth.<br>
+More details can be found <a class="reference external" href="https://ec-jrc.github.io/lisflood-code/3_step5_model-initialisation/">here</a>.</p></li>
+<li><p>Note that the initialization section of course looks different for the pre-run compared to the normal run.</p></li>
+</ul>
+</li>
+<li><p>The end files block determines the location and names where the soil moisture (theta) and upper zone (UZ) files for the last time step are stored that are then used in the <em>Actual Model Run</em> to initialize the model states accordingly.</p></li>
+</ul>
+<p>If everything is set properly in your <strong><code class="docutils literal notranslate"><span class="pre">Settings_PreRun.xml</span></code></strong> file then we can start running the <em>Initialization Run</em>.<br>
+The <em>Initialization Run</em> will then, if we calculated properly, produce 16 maps that are used afterwards in the <em>Actual Run</em>.<br>
+For that, open the terminal, navigate to your settings folder, activate your conda environment where you installed LISFLOOD and run the model.
+This should look as follows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>&lt;your_lisflood_environment&gt;
+<span class="nb">cd</span><span class="w"> </span>&lt;path_where_you_saved_the_repository&gt;/settings/
+lisflood<span class="w"> </span>Settings_PreRun.xml
+</pre></div>
+</div>
+<p>When the run was successfull, you should have a <strong><code class="docutils literal notranslate"><span class="pre">lzavin.nc</span></code></strong> files in your <strong><code class="docutils literal notranslate"><span class="pre">Initial</span></code></strong> folder as described before and some <strong><code class="docutils literal notranslate"><span class="pre">.end.nc</span></code></strong> files should have been created.<br>
+We will now check how the steady-state percolation values in this file look!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># read and plot the maps</span>
+<span class="n">outfold</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;../initial&quot;</span>
+<span class="n">lzavin_file</span> <span class="o">=</span> <span class="s2">&quot;lzavin.nc&quot;</span>
+
+<span class="n">lzavin</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">outfold</span> <span class="o">/</span> <span class="n">lzavin_file</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;netcdf4&quot;</span><span class="p">)</span>
+<span class="c1"># avgdis = xr.open_dataset(outfold / avgdis_file)</span>
+
+<span class="c1"># plotting</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">lzavin</span><span class="o">.</span><span class="n">lzavin</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/057c8c415567d40c956ce13613fe9bf7b3ab24505364a0d86947f69cb911293f.png" src="_images/057c8c415567d40c956ce13613fe9bf7b3ab24505364a0d86947f69cb911293f.png" />
+</div>
+</div>
+<p>We can nicely see how the lower, flat, areas of the Aisén have higher percolation to the lower groundwater layer compared to the higher terrain in the upstream part. <br>
+As the maps represent averages of the specified simulation period, of course we only have one value per pixel.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="1_Preprocess.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><strong>1) Preprocessing</strong></p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="3_Run.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><strong>3) Model Run</strong></p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#initialization-settings"><strong>2) Initialization Settings</strong></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Joint Research Center - European Commission
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

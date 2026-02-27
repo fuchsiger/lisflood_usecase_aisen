@@ -1,0 +1,9 @@
+format: jb-book
+root: readme
+chapters:
+- file: 0_Catchment
+- file: 1_Preprocess
+- file: 2_Initialization
+- file: 3_Run
+- file: 4_Calibration_MC
+- file: Excursus_Initialization

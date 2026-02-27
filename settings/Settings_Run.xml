@@ -176,7 +176,7 @@
             </comment>
             <textvar name="OutputMapsDataType" value="float32"/>            
 
-            <textvar name="PathRoot" value= "/storage/schafti/Documents/01_Hydrology/01_Lisflood/00_SourceCode/01_Playground/01_Test_Usecase/create_submodel_7859/7859_testing">
+            <textvar name="PathRoot" value= "../">
                 <comment>
                     Root directory 
                 </comment>

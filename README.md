@@ -1,106 +1,117 @@
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ec-jrc/lisflood-usecases/master?urlpath=tree/lisflood-notebook.ipynb)
+# Lisflood use case: Río Aisén, West Patagonia, Chile
 
-# Lisflood use cases
-
-This repository hosts two use cases for the LISFLOOD model (v4.3.1). The purpose of those use cases is for you to get kick-started with LISFLOOD as well as to give you the opportunity to verify that the model is running correctly on your PC. For you to be able to do that we have prepared for each of the two use cases all the static input maps, the meteorological forcings and the LISFLOOD setting files. Once you have downloaded and installed the LISFLOOD model on your own PC, we recommend you to download also one (or both) of the use cases and run as a test on your PC. In order for you to know that everything has worked correctly we have uploaded the reference output file. If everything has worked correctly, the time series of discharge values of your output file is identical to the time series of discharge values of the reference file.
-
+This repository hosts a use case for the LISFLOOD model (v5 - used for GloFASv5 and EFASv6). The purpose of this use case is to provide a practical example of setting up and running LISFLOOD for a natural catchment in South America, specifically the Río Aisén in Chile. The use case includes all the static input maps, meteorological forcings, and LISFLOOD setting files needed to run the simulation.</br>
 The [model documentation](https://ec-jrc.github.io/lisflood-model/) provides a detailed description of the modelling of the hydrological processes; the [user guide](https://ec-jrc.github.io/lisflood-code/) provides the guidelines for the set-up of a simulation.   
 
-**NOTE about the static maps made available by this repository**: all the 0.1 degrees static maps of the Fraser catchment and all the 5km static maps of the Po basin were produced following [these guidelines](https://ec-jrc.github.io/lisflood/pdfs/Dataset_hydro.pdf). The [user guide](https://ec-jrc.github.io/lisflood-code/) presents the updated protocol for the preparation of the static maps. The [updated protocol](https://ec-jrc.github.io/lisflood-code/4_Static-Maps-introduction/) relies on the most recent (up to 2021) research findings and data sets (both remote sensing data sets and in-situ measurements). Differences between the static maps produced using the [previous guidelines](https://ec-jrc.github.io/lisflood/pdfs/Dataset_hydro.pdf) and the [updated protocol](https://ec-jrc.github.io/lisflood-code/4_Static-Maps-introduction/) are expected.
+**NOTE about the static maps made available by this repository**: all the static maps of the Río Aisén catchment were produced following the [updated protocol](https://ec-jrc.github.io/lisflood-code/4_Static-Maps-introduction/) for the preparation of static maps. This protocol relies on the most recent (up to 2021) research findings and data sets (both remote sensing data sets and in-situ measurements).
 
-Moreover, a Jupyter Notebook has been developed to show the functioning of LISFLOOD without the need of installing anything on the users’ computer. A description of the Jupyter notebook is provided [below](#jupyter-notebook).
+Moreover, a set of Jupyter Notebooks has been developed to guide users through the entire workflow from preprocessing to calibration. A description of the notebooks is provided [below](#jupyter-notebooks).
 
 ## Running LISFLOOD-OS on your PC
 
-### Use case 1: Fraser River, British Columbia, Canada  <a id="usecase1"></a>
+### Use case: Río Aisén, West Patagonia, Chile <a id="usecase1"></a>
 
 #### Short description 
-The first use case is located in West Canada, in a basin called Fraser. The Fraser River rises at Fraser Pass near Blackrock Mountain in the Rocky Mountains and discharges into the Pacific Ocean at the city of Vancouver. With its 1,375 km length, it is the longest river within British Columbia and the 11<sup>th</sup> longest river in Canada. The basin size is about 220,000 km<sup>2</sup>, while the annual discharge at its mouth is 3,550 m<sup>3</sup>.
+The Río Aisén use case is located in the Aysén Region of Chile, in western Patagonia. The Río Aisén originates from the two headwater streams Río Mañihuales and Río Simpson and flows through the city of Puerto Aisén before discharging into the Pacific Ocean. The basin size is approximately 11,400 km², with elevation ranging from sea level to over 2,000 meters. The river has a mixed (pluvio-nival) regime with minor glaciological features. It has a seasonality and the mean flow at the outlet in the period 1996 - 2018 was around 530 m3/s. Moreover, the catchment is water-rich and counts as an energy-limited regime, something we will explore further in the Use Case. Precipitation has a strong East-West gradient with highest annual precipitation sums in the Western coastal areas, where values can reach around 4,000 mm/a, while the basin average was around 1,300 mm/a for the same 1996 to 2018 period. Average annual temperatures are cold and vary between 2.5 and 4.5 °C with an increase in temperatures since the 2000s. Mean monthly basin-wide mean temperatures stay usually below 8 °C, however, in the coastal valley part of course temperatures are significantly higher. Precipitation mainly falls in Winter (note as we are on the Southern Hemisphere this coincides with the Northern Hemisphere Summer) and overall the cold-wet climate of the basin counts as cool oceanic climate (Cfb in the Köppen-Geiger climate classification).
 
-![](doc/FraserRiver.png)
+```{image} /images/usecase_map.png
+:alt: Study Area Map
+:width: 60%
+```
 
-For testing the LISFLOOD code we prepared all the required input (maps) for a subsection of the Fraser basin (see red dashed box in Figure above). The maps cover the river section from the Nechako tributary in the North till the Quesnel tributary in the South. The outlet point of our test case is located on the main Fraser river at the hight of the Quesnel city and has an upstream area of 114,00 km<sup>2</sup>. As our subsection covers only a relatively small portion of the outlet's upstream catchment, four inlet points have been implemented (called Shelley, Isle Pierre, near Cinema and near Quesnel) accounting for the discharge (of the Upper Fraser, Nechako, Blackwater and Quesnel river respectively) prior to "inflowing" into our map area.   
+This use case is derived from the global LISFLOOD setup of GloFAS. The input maps cover the entire Río Aisén catchment with the outlet located at Puerto Aisén. The catchment represents an untouched river basin in western Patagonia, making it particularly suitable for exploring the basic functionalities of LISFLOOD.
 
-As this is a use case from our global setup, all input maps are in the geographical system WGS84, with latitude and longitude. The map extent is 52.6<sup>o</sup> to 54<sup>o</sup> North and -121.4<sup>o</sup> to -124.5<sup>o</sup> West, with a horizontal resolution of 0.1 degree. The standard map format is netCDF.
+As this is a use case from the global GloFAS setup, all input maps are in the geographical system WGS84, with latitude and longitude. The map extent covers the Aysén Region in Chile, with a horizontal resolution of 0.03 degrees (approximately 3 km). The standard map format is netCDF.
 
+#### How to get it running (Quick Start)
 
-#### How to get it running
+Before getting started, let's have a look at the inventory of files belonging to the Río Aisén use case:
+- [Two main pre-edited LISFLOOD settings files](settings/):
+  - *Settings_PreRun.xml* for the warm-up, i.e., initialization of the hydrological model
+  - *Settings_Run.xml* for the actual simulation
+- [Folder: *maps*](maps/) includes the static maps of the Río Aisén catchment, with information on soil, topography, channel geometry, land use, etc.
+- [Folder: *meteo*](meteo/) contains all the meteorological input data, such as daily precipitation and temperature from 1975 till 2024
+- [Folder: *inflow*](inflow/) contains the inflow boundary conditions (if applicable)
+- [Folder: *initial*](initial/) contains initial conditions for the model runs
+- [Folder: *tables*](tables/) contains information on lakes and reservoirs
+- [Folder: *settings*](settings/) contains the LISFLOOD configuration files
+- [Folder: *out*](out/) contains the outputs of your runs
+- [Folder: *station*](station/) contains the station data (metadata & discharge observations) at the outlet used for GloFAS calibration
 
-Before of getting started, let's have a look at the inventory of files belonging to the Fraser use case. You can find them in the [parent folder](https://github.com/ec-jrc/lisflood-usecases/tree/master/LF_lat_lon_UseCase):
-- [two pre-edited LISFLOOD settings files](https://github.com/ec-jrc/lisflood-usecases/tree/master/LF_lat_lon_UseCase):
-  - *settings_lat_lon-PreRun.xml* for the warm up, i.e. initialization of the hydrological model and 
-  - *settings_lat_lon-Run.xml* for the actual simulation.
-- [folder: *maps*](https://github.com/ec-jrc/lisflood-usecases/tree/master/LF_lat_lon_UseCase/maps), [folder: *landuse*](https://github.com/ec-jrc/lisflood-usecases/tree/master/LF_lat_lon_UseCase/landuse) include the static maps of the Fraser river subsection, with information on soil, topography, channel geometry,landuse, etc. 
-- [folder: *meteo*](https://github.com/ec-jrc/lisflood-usecases/tree/master/LF_lat_lon_UseCase/meteo) contains all the meteorological input data, such as daily precipitation, average temperature and evapotranspiration from 02.01.1986 till 01.01.2018; [folder: *inflow*](https://github.com/ec-jrc/lisflood-usecases/tree/master/LF_lat_lon_UseCase/inflow) contains the discharge time series of the four input points, from 02.01.1986 to 01.01.2018.
-For general information on LISFLOOD input files see [here](https://ec-jrc.github.io/lisflood-code/4_annex_input-files/)
-- *dis_reference_LF_lat_lon.tss* is the reference output file. Use this file to compare against your own model simulation, if the time series of discharge values are identical (including all the decimal values), then LISFLOOD is running correctly on your PC. Please note that very first line of the each .tss file states the specific folder path and the date and time of generation of the results, this line is thus specific to each simulation.
-
-Okay let's get started. Follow the steps below to execute the use case on your PC: 
-1. If you haven't installed LISFLOOD yet, please do that first. You find the model [here](https://github.com/ec-jrc/lisflood-code) and also the [installation instructions](https://ec-jrc.github.io/lisflood-code/3_step2_installation/). Note: if possible, please install it on a LINUX system as it has shown to work more reliable on that system. 
-2. Once you have completed step 1, download all the [files belonging to the Fraser use case](https://github.com/ec-jrc/lisflood-usecases/tree/master/LF_lat_lon_UseCase) to your local drive, please keep the folder structure as it is in the Github repository as LISFLOOD will expect them like that. 
-3. Open the LISFLOOD settings files on your local conputer and adapt the path names (so they fit to your local dirves): *PathRoot*, *MaskMap*, *PathRoot*, *PathParams*, and *PathTables*. Please remember to do that for both settings files as else you will run into problems very soon.
-TIP:  You can use *$(ProjectDir)* or *$(ProjectPath)* as built-in variable to use in this XML settings, to refer the project folder.
-4. Create a folder called *out* in the same parent folder on your local drive, to provide LISFLOOD with a designated space to save your model output
-5. Open a command window and execute LISFLOOD. First you have to do the pre-run to initialize the model for that you have to execute LISFLOOD with the following settings file: *settings_lat_lon-PreRun.xml*. Once that is completed, check the *out* folder, you should find a file called lzavin in there. If that's the case you can launch the actual LISFLOOD run by execting LISFLOOD with the *settings_lat_lon-Run.xml* settings file. This should produce a file called *dis.tss* in your *out* folder. The *dis_run.tss* contains the simulated discharge at the outlet point.
-6. Compare the *dis_run.tss* with the *dis_reference_LF_lat_lon.tss* to verify the correct installation and running of LISFLOOD.
-
-[What's next?](#next)
-
-
-### Use case 2: Po River, Italy <a id="usecase2"></a>
-
-### Short description 
-The second use case is located in North Italy, in the Po River Basin. Its source is at Monte Viso in Piemonte (Italy) at about 3,700 m; from there it flows 652 km eastwards till it flows into the Adriatic Sea close to Venice. The whole basin covers about 74,000 km², of which 70,000 km² are on Italian territory, and the remaining are shared between France and Switzerland. 
-
-![](doc/PoRiver.png)
-
-Also for this use case we have selected only a portion of the whole river basin. You can see the selected area in the map above as it is outlined with a red dashed box. It includes a large part of the Upper Po River basin till the outlet at Pieve del Cairo on the main Po River. The area upstream of the outlet is 25,875 km². However, as not all of the very upstream sections are fully included in the map extent (you see that some are outside of the red box) five inflow points were defined (see map). At those locations a pre-calculated discharge time series will be used that accounts also for all the upstream areas.
-
-As this use case is from our European setup, all the input maps are in the SPIRE compliant ETRS89 Lambert Azimuthal Equal Area Coordinate Reference System (ETRS-LAEA). The extent of the prepared input maps for this use case is 2535000 (top), 4095000 (left), 4230000 (right) and 2380000 (bottom). The horizontal resolution is 5 km and the standard map format is netCDF.
-
-
-#### How to get it running
-
-This section is pretty much a repetition of the one on the top for the Frasers river, but adapted for the use case on the Po river basin. We are going to repeat it here as the links to the files are different and also because you might not have done the one on the Fraser river.
-
-Before of getting started, let's have a look at the inventory of files belonging to the Po use case. You can find them in the [parent folder](https://github.com/ec-jrc/lisflood-usecases/tree/master/LF_ETRS89_UseCase):
-- [two pre-edited LISFLOOD settings files](https://github.com/ec-jrc/lisflood-usecases/tree/master/LF_ETRS89_UseCase):
-  - *settings_ETRS89-PreRun.xml* for the warm up, i.e. initialization of the hydrological model and 
-  - *settings_ETRS89-Run.xml* for the actual simulation.
-- [folder: *maps*](https://github.com/ec-jrc/lisflood-usecases/tree/master/LF_ETRS89_UseCase/maps) includes the static maps of the Po river subsection, with information on soil, topography, channel geometry, etc. 
-- [folder: *landuse*](https://github.com/ec-jrc/lisflood-usecases/tree/master/LF_ETRS89_UseCase/landuse) contains information on land use.
-- [folder: *meteo*](https://github.com/ec-jrc/lisflood-usecases/tree/master/LF_ETRS89_UseCase/meteo) contains all the meteorological input data, such as daily precipitation, average temperature and evapotranspiration from 02.01.1990 till 31.12.2017; [folder: *inflow*](https://github.com/ec-jrc/lisflood-usecases/tree/master/LF_ETRS89_UseCase/inflow) contains the discharge time series at the five input points, from 02.01.1990 to 31.12.2017.
-- [folder: *tables*](https://github.com/ec-jrc/lisflood-usecases/tree/master/LF_ETRS89_UseCase/tables) contains information on rice irrigation and reservoir operation.
-For general information on LISFLOOD input files see [here](https://ec-jrc.github.io/lisflood-code/4_annex_input-files/)
-- *dis_reference_LF_ETRS89.tss*. Is the reference output file. Use this file to compare against your own model simulation, if the time series of discharge values are identical (including all the decimal values), then LISFLOOD is running correctly on your PC. Please note that the very first line of your .tss file and of the reference .tss files is different as it shows the folder path and the time and date of the simulation.
+To make everything work properly, you can also use the *environment.yml* file to create an environment with all the libraries needed in this tutorial.</br>
+The following steps refer to a quick start, however, the comprehensive tutorial can be found under [*docs*](docs/).</br>
+For general information on LISFLOOD input files see [here](https://ec-jrc.github.io/lisflood-code/4_annex_input-files/).
 
 Okay let's get started. Follow the steps below to execute the use case on your PC: 
-1. If you haven't installed LISFLOOD yet, please do that first. You find the model [here](https://github.com/ec-jrc/lisflood-code) and also the [installation instructions](https://ec-jrc.github.io/lisflood-code/3_step2_installation/). Note: if possible, please install it on a LINUX system as it has shown to work more reliable on that system. 
-2. Once you have completed step 1, download all the [files belonging to the Po use case](https://github.com/ec-jrc/lisflood-usecases/tree/master/LF_ETRS89_UseCase) to your local drive, please keep the folder structure as it is in the Github repository as LISFLOOD will expect them like that. 
-3. Open the LISFLOOD settings files on your local conputer and adapt the path names (so they fit to your local dirves): *PathRoot*, *MaskMap*, *PathRoot*, *PathParams*, and *PathTables*. Please remember to do that for both the settings files as else you will run into problems very soon.
-TIP:  You can use *$(ProjectDir)* or *$(ProjectPath)* as built-in variable to use in this XML settings, to refer the project folder.
-4. Create a folder called *out* in the same parent folder on your local drive, to provide LISFLOOD with a designated space to save your model output
-5. Open a command window and execute LISFLOOD. First you have to do the pre-run to initialize the model for that you have to execute LISFLOOD with the following settings file: *settings_ETRS89-PreRun.xml*. Once that is completed, check the *out* folder, you should find two netCDF files called *avgdis* and *lzavin*. If that's the case you can launch the actual LISFLOOD run by execting LISFLOOD with the *settings_ETRS89-Run.xml* settings file. This should produce a file called *dis.tss* in your *out* folder. The *dis.tss* contains the simulated discharge at the outlet point.
-6. Compare the *dis.tss* with the *dis_reference_LF_ETRS89.tss* to verify the correct installation and running of LISFLOOD.
+1. If you haven't installed LISFLOOD yet (and don't use our *.yml*), please do that first. You find the model [here](https://github.com/ec-jrc/lisflood-code) and also the [installation instructions](https://ec-jrc.github.io/lisflood-code/3_step2_installation/). Note: if possible, please install it on a LINUX system as it has shown to work more reliably on that system and as we do not provide support for Windows. 
+2. Once you have completed step 1, download all the files belonging to the Río Aisén use case to your local drive, please keep the folder structure as it is in the repository as LISFLOOD will expect them like that in our examples. 
+3. In general the paths in the setting files should be relative paths and thus work universally, however, please double check and on demand adapt the path names (so they fit to your local drives): *PathRoot*, *MaskMap*, *PathRoot*, *PathParams*, and *PathTables*. Please remember to do that for all settings files as else you will run into problems very soon (In fact the paths are one of the most recurring mistake).
+TIP: You can use *$(ProjectDir)* or *$(ProjectPath)* as built-in variable to use in this XML settings, to refer to the project folder.
+4. Prove that you have a folder called *out* in the same parent folder on your local drive, to provide LISFLOOD with a designated space to save your model output.
+5. Open a command window and execute LISFLOOD. First you have to do the pre-run to initialize the model, for that you have to execute LISFLOOD with the following settings file: *Settings_PreRun.xml*. Once that is completed, check the *out* folder, you should find a file called *lzavin* in there. The file should also be located in the *initial* folder, so you can use the one that already exists there or replace it with the one you created. If that's the case you can launch the actual LISFLOOD run by executing LISFLOOD with the *Settings_Run.xml* settings file. This should produce a file called *dis.tss* in your *out* folder. The *dis.tss* contains the simulated discharge at the outlet point at Puerto Aisén.
+6. Compare your output with the expected results, e.g. the observations located in *station*, to verify the correct installation and running of LISFLOOD.
 
+#### Additional Settings Files
+
+This use case includes several additional settings files for different purposes:
+- *Settings_Run_short_init.xml* and *Settings_PreRun_short_init.xml*: Short initialization demo run
+- *Settings_Run_Calib.xml* and *Settings_PreRun_Calib.xml*: Settings for calibration runs
 
 ### What's next? <a id="next"></a>
 
-If everything went alright you can be sure that the LISFLOOD runs correctly on your PC and you are ready to set it up for your own area. By the number of input maps you can tell that this is not going to be an easy exercise as LISFLOOD is quite complex and requires several input information. By making available those two use cases we hope to facilitate you to understand how LISFLOOD works and what input information it requires. We recommend you to read carefully the documentation on the input data, so that you can prepare them for your own area. As a good practice we recommend you to replace one map at a time and see if LISFLOOD is still running as that will help you to understand where things went wrong in the case that the model has stopped working.
+If everything went alright you can be sure that LISFLOOD runs correctly on your PC and you are ready to set it up for your own area. By the number of input maps you can tell that this is not going to be an easy exercise as LISFLOOD is quite complex and requires several input information. By making available this use case we hope to facilitate you to understand how LISFLOOD works and what input information it requires. We recommend you to read carefully the documentation on the input data, so that you can prepare them for your own area. As a good practice we recommend you to replace one map at a time and see if LISFLOOD is still running as that will help you to understand where things went wrong in the case that the model has stopped working.
+
+## Jupyter Notebooks <a id="jupyter-notebooks"></a>
+
+A set of Jupyter Notebooks was developed to guide users through the entire LISFLOOD workflow. They allow the user to familiarize with LISFLOOD settings, parameters, processing protocol, and output variables.
+
+The notebooks are structured as follows:
+
+1. **Catchment Characteristics** (*docs/0_Catchment.ipynb*)
+   - Overview of the Río Aisén catchment
+   - Basin characteristics and hydrological features
+
+2. **Preprocessing** (*docs/1_Preprocess.ipynb*)
+   - Data preparation for LISFLOOD
+   - Map generation and manipulation
+
+3. **Initialization**
+   - Model Initialization (*docs/2_Initialization.ipynb*)
+   - Excursus: Initialization Details (*docs/Excursus_Initialization.ipynb*)
+   - Setting up initial conditions for the hydrological model
+
+4. **Model Run** (*docs/3_Run.ipynb*)
+   - Running the LISFLOOD simulation
+   - Understanding output files
+
+5. **Calibration (Monte Carlo)** (*docs/4_Calibration_MC.ipynb*)
+   - Parameter calibration using Monte Carlo approach
+   - Sensitivity analysis
 
 
-## Jupyter notebook
+*Note*: *The users are recommended to test the functioning of the Jupyter notebook by running the Río Aisén use case.*
 
-A Jupyter Notebook was developed to show the functioning of LISFLOOD without the need of installing anything on the users’ computer. The Jupyter notebook can be accessed by simply clicking on the button  “launch binder” on top of the README. It allows the user to familiarize with LISFLOOD settings, parameters, processing protocol, and output variables by simply interacting with the graphic interface of the notebook.<br>
-When opening the notebook with Binder, the code cells are folded. Conversely, the code can be visualized by clicking on the respective small arrow on the left. The users can test the functioning of LISFLOOD by clicking the using the standard Jupyter Notebook commands.<br>
-The Processing code cell creates an interactive interface where the users can select (i) the settings files, (ii) the temporal interval for the simulation, (iii) the hydrological modules, (iv) the values of the parameters, and (v) the output variables. <br>
-The simulation can then be performed by simply clicking on the “Start processing” button. <br>
-The results are visualized by the Outputs code cell. <br>
-The notebook can also be used for data visualization of previous LISFLOOD runs. When running the Outputs code cell, the notebook checks whether the Processing code cell has been executed before. If yes, it opens the output files coming from this LISFLOOD run. If not, it opens another file chooser where the users can choose the output folder that they would like to visualize.
+## LISFLOOD Processes
 
-*Note*: *the users are recommended to test the functioning of the Jupiter notebook by running the LF_lat_lon usecase.*<br>
-Prerun settings: lisfloodSettings_reference_PreRun.xml<br>
-Run settings: lisfloodSettings_reference_Run.xml<br>
+We encourage users to explore in detail the process representations of LISFLOOD, e.g. an introduction can be found [here](https://ec-jrc.github.io/lisflood-model/2_01_stdLISFLOOD_overview/). In the following a quick overview scheme is provided that gives a first overview of the processes modeled by LISFLOOD:
 
-**Acknowledgement**: the Jupyter Notebook was developed by Victor Hertel.
+```{image} docs/images/lisflood_scheme.png
+:alt: LISFLOOD Processes
+:width: 100%
+```
 
+In more detail, we provide a quick wrap up on the process representations in LISFLOOD:
+
+| Process | Model representation | Notes | Main calibration parameters |
+|--------|----------------------|------------------------|-----------------|
+| Potential Evapotranspiration | Penman-Monteith | Climatic input (e.g. computed by LISVAP) | — |
+| Runoff Generation / Infiltration | Xinanjiang-type (VIC / ARNO) | Non-linear soil moisture distribution linking potential infiltration capacity to soil moisture | *b_Xinanjiang* (Shape parameter) |
+| Snow Melt | Degree-day Approach | Rain-on-snow impacts included; Melt-factor is seasonally varying; snow fall and melt threshold temp. set to 1°C | *SnowMeltCoef* (Degree-day factor) |
+| Soil Moisture Redistribution | Iterative vertical redistribution based on soil moisture gradients | Uses conceptual Darcy/van Genuchten relationships to define potential fluxes | - |
+| Preferential (Bypass) Flow | Power Function of Relative Saturation | Preferential flow water is limited by available infiltration water | *PowerPrefFlow* (shape parameter) |
+| Groundwater | Lower & Upper Zone Linear Reservoirs | Upper reservoir acts as fast and Lower reservoir as slow responding components; Percolation between both reservoirs considered; Groundwater loss outside the catchment from Lower zone possible | *GwPercValue* (Max. percolation between layers) <br> *LowerZoneTimeConstant* (Recession constant upper zone) <br> *UpperZoneTimeConstant* (Recession constant lower zone) <br> *GwLoss* (Max. loss lower layer) |
+| Surface Runoff Routing | Kinematic Wave | 4-point implicit finite-difference solution; momentum simplified (S0 = Sf) | — |
+
+## Acknowledgements
+
+This use case is based on the global LISFLOOD setup developed for the GloFAS (Global Flood Awareness System) system operated by the European Commission Joint Research Centre.

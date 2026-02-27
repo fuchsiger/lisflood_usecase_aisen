@@ -161,7 +161,7 @@
             </comment>
             <textvar name="OutputMapsDataType" value="float32" />            
 
-            <textvar name="PathRoot" value="/storage/schafti/Documents/01_Hydrology/01_Lisflood/00_SourceCode/01_Playground/01_Test_Usecase/create_submodel_7859/7859_testing">
+            <textvar name="PathRoot" value="../">
                 <comment>
                     Root directory 
                 </comment>
@@ -218,7 +218,7 @@
             <textvar name="proj4_params" value="+proj=laea +lat_0=52 +lon_0=10 +x_0=4321000 +y_0=3210000 +ellps=GRS80 +units=m +no_defs">
             </textvar>
 
-            <textvar name="PathOut" value="/home/schafti/Documents/01_Hydrology/01_Lisflood/00_SourceCode/01_Playground/01_Test_Usecase/create_submodel_7859/7859_testing/out/calib_mc">
+            <textvar name="PathOut" value="../out/calib_mc">
                 <comment>
                     Output path
                 </comment>
@@ -345,7 +345,7 @@
                 </comment>
             </textvar>
 
-            <textvar name="StepStart" value="02/01/1996 00:00">
+            <textvar name="StepStart" value="01/02/1996 00:00">
                 <comment>
                     Number of first time step in simulation
                 </comment>

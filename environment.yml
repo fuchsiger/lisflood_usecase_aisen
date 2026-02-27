@@ -1,0 +1,15 @@
+name: lisflood-dev
+channels:
+  - defaults
+dependencies:
+  - python=3.8
+  - pcraster
+  - gdal[version='<=3.5.3']
+  - jinja2
+  - jupyter
+  - dask
+  - netcdf4
+  - xarray=2022.12
+  - pandas
+  - matplotlib
+prefix: /home/schafti/.conda/envs/lisflood-dev

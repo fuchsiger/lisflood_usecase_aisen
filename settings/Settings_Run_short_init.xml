@@ -176,7 +176,7 @@
             </comment>
             <textvar name="OutputMapsDataType" value="float32"/>            
 
-            <textvar name="PathRoot" value= "/home/schafti/Documents/01_Hydrology/01_Lisflood/00_SourceCode/01_Playground/01_Test_Usecase/create_submodel_7859/7859_testing_map_redundancy/">
+            <textvar name="PathRoot" value= "../">
                 <comment>
                     Root directory 
                 </comment>
@@ -233,13 +233,13 @@
             <textvar name="proj4_params" value="+proj=laea +lat_0=52 +lon_0=10 +x_0=4321000 +y_0=3210000 +ellps=GRS80 +units=m +no_defs">
             </textvar>
 
-            <textvar name="PathOut" value="$(PathRoot)/out/long_term_run">
+            <textvar name="PathOut" value="$(PathRoot)/out/short_init">
                 <comment>
                     Output path
                 </comment>
             </textvar>
 
-            <textvar name="PathInit" value="$(PathRoot)/initial">
+            <textvar name="PathInit" value="$(PathRoot)/initial/short_init">
                 <comment>
                     Path of the initial value maps e.g. lzavin.map
                 </comment>
@@ -690,21 +690,21 @@
                 </comment>
             </textvar>
 
-            <textvar name="ThetaInit1Value" value="$(PathOut)/tha.end.nc">
+            <textvar name="ThetaInit1Value" value="$(PathOut)/th1.end.nc">
                 <comment>
                     initial soil moisture content layer 1
                     -9999: use field capacity values
                 </comment>
             </textvar>
 
-            <textvar name="ThetaInit2Value" value="$(PathOut)/thb.end.nc">
+            <textvar name="ThetaInit2Value" value="$(PathOut)/th2.end.nc">
                 <comment>
                     initial soil moisture content layer 2
                     -9999: use field capacity values
                 </comment>
             </textvar>
 
-            <textvar name="ThetaInit3Value" value="$(PathOut)/thc.end.nc">
+            <textvar name="ThetaInit3Value" value="$(PathOut)/th3.end.nc">
                 <comment>
                     initial soil moisture content layer 2
                     -9999: use field capacity values
@@ -804,21 +804,21 @@
                 </comment>
             </textvar>
 
-            <textvar name="ThetaForestInit1Value" value="$(PathOut)/thfa.end.nc">
+            <textvar name="ThetaForestInit1Value" value="$(PathOut)/thf1.end.nc">
                 <comment>
                     initial soil moisture content layer 1
                     -9999: use field capacity values
                 </comment>
             </textvar>
 
-            <textvar name="ThetaForestInit2Value" value="$(PathOut)/thfb.end.nc">
+            <textvar name="ThetaForestInit2Value" value="$(PathOut)/thf2.end.nc">
                 <comment>
                     initial soil moisture content layer 2
                     -9999: use field capacity values
                 </comment>
             </textvar>
 
-            <textvar name="ThetaForestInit3Value" value="$(PathOut)/thfc.end.nc">
+            <textvar name="ThetaForestInit3Value" value="$(PathOut)/thf3.end.nc">
                 <comment>
                     initial soil moisture content layer 2
                     -9999: use field capacity values
@@ -854,21 +854,21 @@
                 </comment>
             </textvar>
 
-            <textvar name="ThetaIrrigationInit1Value" value="$(PathOut)/thia.end.nc">
+            <textvar name="ThetaIrrigationInit1Value" value="$(PathOut)/thi1.end.nc">
                 <comment>
                     initial soil moisture content layer 1
                     -9999: use field capacity values
                 </comment>
             </textvar>
 
-            <textvar name="ThetaIrrigationInit2Value" value="$(PathOut)/thib.end.nc">
+            <textvar name="ThetaIrrigationInit2Value" value="$(PathOut)/thi2.end.nc">
                 <comment>
                     initial soil moisture content layer 2
                     -9999: use field capacity values
                 </comment>
             </textvar>
 
-            <textvar name="ThetaIrrigationInit3Value" value="$(PathOut)/thic.end.nc">
+            <textvar name="ThetaIrrigationInit3Value" value="$(PathOut)/thi3.end.nc">
                 <comment>
                     initial soil moisture content layer 2
                     -9999: use field capacity values
@@ -2239,7 +2239,7 @@ Clone map
                 **************************************************************
             </comment>
 
-            <textvar name="LZAvInflowMap" value="$(PathOut)/lzavin">
+            <textvar name="LZAvInflowMap" value="$(PathInit)/lzavin">
                 <comment>
                     NOTE DD: The name of the lzavin files MUST contain a dot . because 
                     the add1.py/writenet function uses the dot to distinguish whether
@@ -2253,7 +2253,7 @@ Clone map
                 </comment>
             </textvar>
 
-            <textvar name="AvgDis" value="$(PathOut)/avgdis">
+            <textvar name="AvgDis" value="$(PathInit)/avgdis">
                 <comment>
                     $(PathRoot)/maps/avgdis.map
                     $(PathInit)/avgdis.map
@@ -2964,21 +2964,21 @@ Clone map
                     REPORTING TIME STEPS SET THROUGH "ReportSteps" OPTION
                 </comment>
 
-                <textvar name="Theta1State" value="$(PathOut)/tha">
+                <textvar name="Theta1State" value="$(PathOut)/th1">
                     <comment>
                         Reported volumetric soil moisture content for
                         soil layer 1 [V/V]
                     </comment>
                 </textvar>
 
-                <textvar name="Theta2State" value="$(PathOut)/thb">
+                <textvar name="Theta2State" value="$(PathOut)/th2">
                     <comment>
                         Reported volumetric soil moisture content for both
                         soil layer 2 [V/V]
                     </comment>
                 </textvar>
 
-                <textvar name="Theta3State" value="$(PathOut)/thc">
+                <textvar name="Theta3State" value="$(PathOut)/th3">
                     <comment>
                         Reported volumetric soil moisture content for both
                         soil layer 2 [V/V]
@@ -3112,21 +3112,21 @@ Clone map
                     </comment>
                 </textvar>
 
-                <textvar name="Theta1ForestState" value="$(PathOut)/thfa">
+                <textvar name="Theta1ForestState" value="$(PathOut)/thf1">
                     <comment>
                         Reported volumetric soil moisture content for
                         soil layer 1 [V/V]
                     </comment>
                 </textvar>
 
-                <textvar name="Theta2ForestState" value="$(PathOut)/thfb">
+                <textvar name="Theta2ForestState" value="$(PathOut)/thf2">
                     <comment>
                         Reported volumetric soil moisture content for both
                         soil layer 2 [V/V]
                     </comment>
                 </textvar>
 
-                <textvar name="Theta3ForestState" value="$(PathOut)/thfc">
+                <textvar name="Theta3ForestState" value="$(PathOut)/thf3">
                     <comment>
                         Reported volumetric soil moisture content for both
                         soil layer 2 [V/V]
@@ -3157,21 +3157,21 @@ Clone map
                     </comment>
                 </textvar>
 
-                <textvar name="Theta1IrrigationState" value="$(PathOut)/thia">
+                <textvar name="Theta1IrrigationState" value="$(PathOut)/thi1">
                     <comment>
                         Reported volumetric soil moisture content for
                         soil layer 1 [V/V]
                     </comment>
                 </textvar>
 
-                <textvar name="Theta2IrrigationState" value="$(PathOut)/thib">
+                <textvar name="Theta2IrrigationState" value="$(PathOut)/thi2">
                     <comment>
                         Reported volumetric soil moisture content for both
                         soil layer 2 [V/V]
                     </comment>
                 </textvar>
 
-                <textvar name="Theta3IrrigationState" value="$(PathOut)/thic">
+                <textvar name="Theta3IrrigationState" value="$(PathOut)/thi3">
                     <comment>
                         Reported volumetric soil moisture content for both
                         soil layer 2 [V/V]
