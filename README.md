@@ -14,10 +14,7 @@ Moreover, a set of Jupyter Notebooks has been developed to guide users through t
 #### Short description 
 The Río Aisén use case is located in the Aysén Region of Chile, in western Patagonia. The Río Aisén originates from the two headwater streams Río Mañihuales and Río Simpson and flows through the city of Puerto Aisén before discharging into the Pacific Ocean. The basin size is approximately 11,400 km², with elevation ranging from sea level to over 2,000 meters. The river has a mixed (pluvio-nival) regime with minor glaciological features. It has a seasonality and the mean flow at the outlet in the period 1996 - 2018 was around 530 m3/s. Moreover, the catchment is water-rich and counts as an energy-limited regime, something we will explore further in the Use Case. Precipitation has a strong East-West gradient with highest annual precipitation sums in the Western coastal areas, where values can reach around 4,000 mm/a, while the basin average was around 1,300 mm/a for the same 1996 to 2018 period. Average annual temperatures are cold and vary between 2.5 and 4.5 °C with an increase in temperatures since the 2000s. Mean monthly basin-wide mean temperatures stay usually below 8 °C, however, in the coastal valley part of course temperatures are significantly higher. Precipitation mainly falls in Winter (note as we are on the Southern Hemisphere this coincides with the Northern Hemisphere Summer) and overall the cold-wet climate of the basin counts as cool oceanic climate (Cfb in the Köppen-Geiger climate classification).
 
-```{image} /images/usecase_map.png
-:alt: Study Area Map
-:width: 60%
-```
+![LISFLOOD Processes](images/usecase_map.png)
 
 This use case is derived from the global LISFLOOD setup of GloFAS. The input maps cover the entire Río Aisén catchment with the outlet located at Puerto Aisén. The catchment represents an untouched river basin in western Patagonia, making it particularly suitable for exploring the basic functionalities of LISFLOOD.
 
@@ -95,10 +92,7 @@ The notebooks are structured as follows:
 
 We encourage users to explore in detail the process representations of LISFLOOD, e.g. an introduction can be found [here](https://ec-jrc.github.io/lisflood-model/2_01_stdLISFLOOD_overview/). In the following a quick overview scheme is provided that gives a first overview of the processes modeled by LISFLOOD:
 
-```{image} docs/images/lisflood_scheme.png
-:alt: LISFLOOD Processes
-:width: 100%
-```
+![LISFLOOD Processes](docs/images/lisflood_scheme.png)
 
 In more detail, we provide a quick wrap up on the process representations in LISFLOOD:
 
