@@ -1,0 +1,152 @@
+Traceback (most recent call last):
+  File "/home/schafti/.conda/envs/lisflood-dev/lib/python3.8/site-packages/jupyter_core/utils/__init__.py", line 154, in wrapped
+    asyncio.get_running_loop()
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/schafti/.conda/envs/lisflood-dev/lib/python3.8/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/home/schafti/.conda/envs/lisflood-dev/lib/python3.8/site-packages/nbclient/client.py", line 1305, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/home/schafti/.conda/envs/lisflood-dev/lib/python3.8/site-packages/jupyter_core/utils/__init__.py", line 158, in wrapped
+    return loop.run_until_complete(inner)
+  File "/home/schafti/.conda/envs/lisflood-dev/lib/python3.8/asyncio/base_events.py", line 616, in run_until_complete
+    return future.result()
+  File "/home/schafti/.conda/envs/lisflood-dev/lib/python3.8/site-packages/nbclient/client.py", line 705, in async_execute
+    await self.async_execute_cell(
+  File "/home/schafti/.conda/envs/lisflood-dev/lib/python3.8/site-packages/nbclient/client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/home/schafti/.conda/envs/lisflood-dev/lib/python3.8/site-packages/nbclient/client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# Precalculations for the plot
+# Ensure smlt_doy is a Series if it's a DataFrame
+import matplotlib as mpl
+
+if isinstance(smlt_doy, pd.DataFrame):
+    smlt_series = smlt_doy.iloc[:,0]
+else:
+    smlt_series = smlt_doy
+
+# Qsim in mm
+qsim_doy_mm = qsim_doy / basin_area * 1e3 * 24*3600  # mm/day
+
+total_flow = qsim_doy_mm.sum()
+total_smlt = smlt_series.sum()
+avg_share = 100 * total_smlt / total_flow
+
+# Prepare SWE for hydrological year
+swe_plot["hydro_year"] = swe_plot.index.year + (swe_plot.index.month >= 10)
+
+# Sort to be safe
+swe_plot = swe_plot.sort_index()
+
+# Compute hydrological DOY by cumulative count within each hydro year
+swe_plot["doy_hydro"] = (
+    swe_plot.groupby("hydro_year")
+            .cumcount() + 1
+)
+
+# Figure 
+fig, axes = plt.subplots(2, 2, figsize=(16, 8), sharex=False)
+axes = axes.flatten()
+
+# 1) Seasonal SWE Evolution (yearly curves)
+years = np.sort(swe_plot["hydro_year"].unique())
+cmap = plt.get_cmap("Blues")
+norm = mpl.colors.Normalize(vmin=years.min(), vmax=years.max())
+
+for year in years:
+    yearly = swe_plot[swe_plot["hydro_year"] == year]
+    axes[0].plot(
+        yearly["doy_hydro"],
+        yearly.iloc[:,0].rolling(7, center=True).mean(),
+        color=cmap(norm(year)),
+        alpha=0.9,
+        linewidth=1
+    )
+
+axes[0].set_ylabel("SWE (mm)")
+axes[0].set_title("Seasonal SWE Evolution")
+axes[0].grid(alpha=0.3)
+
+# Monthly ticks (hydrological year Apr-Mar)
+ref_year = 2001
+months = pd.date_range(start=f"{ref_year}-04-01", end=f"{ref_year+1}-03-01", freq="MS")
+month_positions = (months - months[0]).days + 1
+month_labels = months.strftime("%b")
+axes[0].set_xticks(month_positions)
+axes[0].set_xticklabels(month_labels)
+axes[0].set_xlim(1, 365)
+
+sm = mpl.cm.ScalarMappable(cmap=cmap, norm=norm)
+sm.set_array([])
+cbar = plt.colorbar(sm, ax=axes[0], pad=0.02)
+cbar.set_label("Hydrological Year (Southern Hemisphere)")
+
+# 2) Simulated Flow + Snowmelt
+axes[1].plot(qsim_doy_mm.index, qsim_doy_mm.values, color='firebrick', lw=1.8, label="Simulated Flow")
+axes[1].plot(smlt_series.index, smlt_series.values, color='royalblue', lw=1.8, label="Snow Melt")
+
+# Fill area to visualize snowmelt contribution
+axes[1].fill_between(
+    qsim_doy_mm.index,
+    0,
+    np.minimum(qsim_doy_mm.values, smlt_series.values),
+    color='lightblue',
+    alpha=0.3
+)
+
+# Monthly ticks (leap year for 366 DOY)
+ref_year = 2000
+months = pd.date_range(start=f"{ref_year}-01-01", end=f"{ref_year}-12-01", freq='MS')
+month_positions = months.dayofyear
+month_labels = months.strftime("%b")
+axes[1].set_xticks(month_positions)
+axes[1].set_xticklabels(month_labels)
+axes[1].set_xlim(1, 366)
+
+axes[1].grid(alpha=0.3, linestyle='--')
+axes[1].set_ylabel("Discharge (mm/day)")
+axes[1].set_title("Simulated Flow and Snow Melt")
+axes[1].legend(frameon=False, fontsize=10)
+
+# Optional: print average snowmelt contribution
+axes[1].annotate(
+    f"Avg snowmelt contribution: {avg_share:.1f}%",
+    xy=(0.5, 0.9),
+    xycoords='axes fraction',
+    fontsize=10,
+    bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="black", alpha=0.5)
+)
+
+# 3) Annual Maximum SWE
+axes[2].plot(swe_mx_a.index, swe_mx_a.values, lw=1, c="lightcoral", alpha=0.6, label="Annual Max SWE")
+axes[2].plot(swe_mx_a.rolling(window=5).mean().index, swe_mx_a.rolling(window=5).mean().values,
+             lw=2, c="red", label="5-Year Smoothed")
+
+axes[2].set_ylabel("SWE (mm)")
+axes[2].set_xlabel("Year")
+axes[2].grid(alpha=0.3)
+axes[2].legend(frameon=False, fontsize=10)
+axes[2].set_title("Annual Maximum SWE and Smoothed Trend")
+
+axes[3].axis('off')  # Hide the empty subplot
+plt.tight_layout()
+------------------
+
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mNameError[0m                                 Traceback (most recent call last)
+Cell [0;32mIn[15], line 18[0m
+[1;32m     15[0m avg_share [38;5;241m=[39m [38;5;241m100[39m [38;5;241m*[39m total_smlt [38;5;241m/[39m total_flow
+[1;32m     17[0m [38;5;66;03m# Prepare SWE for hydrological year[39;00m
+[0;32m---> 18[0m swe_plot[[38;5;124m"[39m[38;5;124mhydro_year[39m[38;5;124m"[39m] [38;5;241m=[39m [43mswe_plot[49m[38;5;241m.[39mindex[38;5;241m.[39myear [38;5;241m+[39m (swe_plot[38;5;241m.[39mindex[38;5;241m.[39mmonth [38;5;241m>[39m[38;5;241m=[39m [38;5;241m10[39m)
+[1;32m     20[0m [38;5;66;03m# Sort to be safe[39;00m
+[1;32m     21[0m swe_plot [38;5;241m=[39m swe_plot[38;5;241m.[39msort_index()
+
+[0;31mNameError[0m: name 'swe_plot' is not defined
+
