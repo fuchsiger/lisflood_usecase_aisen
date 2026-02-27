@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Excursos) Model Initialization Run &#8212; LISFLOOD - Río Aisén Use Case</title>
+    <title>Excursus) Model Initialization Run &#8212; LISFLOOD - Río Aisén Use Case</title>
   
   
   
@@ -173,7 +173,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="2_Initialization.html"><strong>2) Model Initialization Run</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="3_Run.html"><strong>3) Model Run</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="4_Calibration_MC.html"><strong>4) Monte Carlo Calibration Example</strong></a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Excursos) Model Initialization Run</strong></a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Excursus) Model Initialization Run</strong></a></li>
 </ul>
 
     </div>
@@ -312,7 +312,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Excursos) Model Initialization Run</h1>
+    <h1>Excursus) Model Initialization Run</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -336,8 +336,8 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <p><img alt="EU Banner" src="_images/eu_banner.png" /></p>
-<section class="tex2jax_ignore mathjax_ignore" id="excursos-model-initialization-run">
-<h1><strong>Excursos) Model Initialization Run</strong><a class="headerlink" href="#excursos-model-initialization-run" title="Permalink to this heading">#</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="excursus-model-initialization-run">
+<h1><strong>Excursus) Model Initialization Run</strong><a class="headerlink" href="#excursus-model-initialization-run" title="Permalink to this heading">#</a></h1>
 <hr class="docutils" />
 <p>This use case intends to introduce the basic mechanics of the hydrological model <a class="reference external" href="https://github.com/ec-jrc/lisflood-code/">LISFLOOD</a>.
 <br>
@@ -347,7 +347,7 @@ Remember, the initialization run aims to produce the required files of the lower
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">lzavin.nc</span></code></strong>: a map of the average inflow into the lower groundwater zone.</p></li>
 </ul>
 <p>Instead of producing the <strong><code class="docutils literal notranslate"><span class="pre">lzavin.nc</span></code></strong> for the whole run, we just do the Pre Run for 01/01/1975 to 31/01/1975. </br>
-As tsaid in Exercise 2, please have a look at <a class="reference external" href="https://ec-jrc.github.io/lisflood-code/3_step5_model-initialisation/">here</a> for more details. </br>
+As said in Exercise 2, please have a look <a class="reference external" href="https://ec-jrc.github.io/lisflood-code/3_step5_model-initialisation/">here</a> for more details. </br>
 Basically, we want to see whether the following image holds or not.</p>
 <p><img alt="EU Banner" src="_images/image_init.png" /></p>
 <p>For that, we prepared the 2 corresponding settings files in the <strong><code class="docutils literal notranslate"><span class="pre">settings</span></code></strong> folder:</p>
@@ -443,7 +443,7 @@ lisflood<span class="w"> </span>Settings_Run_short_init.xml
 <section id="excursos-a-lower-zone-averages-lzavin">
 <h2>Excursos a) Lower Zone Averages (lzavin)<a class="headerlink" href="#excursos-a-lower-zone-averages-lzavin" title="Permalink to this heading">#</a></h2>
 <p>We now load the original <strong><code class="docutils literal notranslate"><span class="pre">lzavin.nc</span></code></strong> from the <strong><code class="docutils literal notranslate"><span class="pre">/initial</span></code></strong> folder and the new one which is created per default in <strong><code class="docutils literal notranslate"><span class="pre">/initial/short_init</span></code></strong>. </br>
-Afterwards, we willcreate a difference map to see local differences between the two average files.</p>
+Afterwards, we will create a difference map to see local differences between the two average files.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># read and plot the maps</span>
@@ -491,7 +491,7 @@ Afterwards, we willcreate a difference map to see local differences between the 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7f43176ed280&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7f15fc2f01f0&gt;
 </pre></div>
 </div>
 <img alt="_images/00700da3ad19e93726f5c2a27749bfd1ae18730f2d6c18a19cef03eb8fd901e2.png" src="_images/00700da3ad19e93726f5c2a27749bfd1ae18730f2d6c18a19cef03eb8fd901e2.png" />

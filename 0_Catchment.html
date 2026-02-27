@@ -174,7 +174,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="2_Initialization.html"><strong>2) Model Initialization Run</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="3_Run.html"><strong>3) Model Run</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="4_Calibration_MC.html"><strong>4) Monte Carlo Calibration Example</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="Excursus_Initialization.html"><strong>Excursos) Model Initialization Run</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Excursus_Initialization.html"><strong>Excursus) Model Initialization Run</strong></a></li>
 </ul>
 
     </div>
@@ -349,7 +349,7 @@ As we can’t discuss all input files in detail, a full list with details can be
 <section id="input-data">
 <h2><strong>0) Input Data</strong><a class="headerlink" href="#input-data" title="Permalink to this heading">#</a></h2>
 <p>LISFLOOD contains dozens of input files, more precisely maps that are either static (no time dimension) or dynamic (with time dimension). <br>
-Besides, LISFLOODs meteorological inputs will be counted and explored here as a standalone category of the inputs.<br>
+Besides, LISFLOOD’s meteorological inputs will be counted and explored here as a standalone category of the inputs.<br>
 In our example model of the Aisén River, all input maps (meteo, static, dynamic) are found in the <strong><code class="docutils literal notranslate"><span class="pre">maps</span></code></strong> and <strong><code class="docutils literal notranslate"><span class="pre">meteo</span></code></strong> folder.</p>
 <p>Meteorological input variables refer to:</p>
 <ul class="simple">
@@ -360,19 +360,19 @@ In our example model of the Aisén River, all input maps (meteo, static, dynamic
 <li><p>Daily potential evaporation rate from reference crop, indicated as <strong><code class="docutils literal notranslate"><span class="pre">et</span></code></strong> or <strong><code class="docutils literal notranslate"><span class="pre">ET0</span></code></strong> (mm/d)</p></li>
 </ul>
 <p>Note, users are thus obliged to provide potential evapotranspiration maps to run the model. <br>
-The preperation of the evapotranspiration maps can be done for example using <a class="reference external" href="https://github.com/ec-jrc/lisflood-lisvap">LISVAP</a>. <br>
+The preparation of the evapotranspiration maps can be done for example using <a class="reference external" href="https://github.com/ec-jrc/lisflood-lisvap">LISVAP</a>. <br>
 As LISVAP uses Penman-Monteith to calculate potential evapotranspiration, additional inputs are required to derive the potential evapotranspiration maps. <br></p>
 <hr class="docutils" />
 <section id="meteorological-check">
 <h3><strong>Meteorological Check</strong><a class="headerlink" href="#meteorological-check" title="Permalink to this heading">#</a></h3>
-<p>We will now have a look at the temperature, precipitation and evapotranspiration regime of our studz area via Python. <br>
+<p>We will now have a look at the temperature, precipitation and evapotranspiration regime of our study area via Python. <br>
 This refers to an important step every modeller should undertake before starting the actual modeling work.<br>
 A meteorological check helps the user to get an idea on what to expect hydrologically in terms of general dryness and wetness (aridity), temporal (seasonal) behavior,<br>
 but also for plausibility reasons whether annual averages &amp; units are reasonable.</p>
 <p>In our example we have one file per variable and year and a prefix <em>“glofas_”</em>, e.g. for temperature <strong><code class="docutils literal notranslate"><span class="pre">glofas_ta_YYYY</span></code></strong>, where YYYY indicates the specific year.<br>
 Besides, as each pixel in LISFLOOD can have fractions of water, bare soil and vegetation we cannot easily get a representative reference evapotranspiration value per Pixel.<br>
 We therefore will show the individual water, bare soil and reference crop evapotranspirations individually for the basin scale in comparison to precipitation.</p>
-<p>Note: as LISVAP provides the individual reference evapotranspirations for the 3 different land surfaces, the real potential evapotranspiration values that consider land use specific information (e.g.through crop coefficients) are internally computed in LISFLOOD and incorporate additional inputs.</p>
+<p>Note: as LISVAP provides the individual reference evapotranspirations for the 3 different land surfaces, the real potential evapotranspiration values that consider land use specific information (e.g., through crop coefficients) are internally computed in LISFLOOD and incorporate additional inputs.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
