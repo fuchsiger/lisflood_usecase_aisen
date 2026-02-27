@@ -35,21 +35,14 @@ The notebooks are structured as followed:
 The test basin of the use case is located in Chile, more precisely in western Patagonia and serves as an untouched river basin particularly suitable to explore the basic functionalities and opportunities of LISFLOOD. The river under investigation is the Rio Aisén that originates from the two headwater streams Río Mañihuales and Río Simpson and has a basin size of around 11,400 km². The river terminates in Puerto Aisén and has a pluvial flow regime with minor glaciological and nival features. Elevation in the catchment goes up to more than 2,000 m. <br>
 A map of the basin is shown below.<br> 
 
-```{image} images/usecase_map.png
-:alt: Study Area
-:width: 70%
-```
-
+![Study Area](images/usecase_map.png)
 
 # **LISFLOOD Processes**
 
 We encourage users to explore in detail the process representations of LISFLOOD, e.g. an introduction can be found [here](https://ec-jrc.github.io/lisflood-model/2_01_stdLISFLOOD_overview/).<br>
 In the following a quick overview scheme is provided that gives a first overview of the processes modeled by LISFLOOD:
 
-```{image} images/lisflood_scheme.png
-:alt: LISFLOOD Processes
-:width: 70%
-```
+![LISFLOOD Processes](images/lisflood_scheme.png)
 
 <br>
 In more detail, we provide a quick wrap up on the process representations in LISFLOOD:
