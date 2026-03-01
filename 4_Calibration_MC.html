@@ -902,14 +902,38 @@ Starting Monte Carlo Calibration (10 runs)
   Parameters: UpperZoneTimeConstant=14.99, LowerZoneTimeConstant=695.99, GwPercValue=1.47...
 </pre></div>
 </div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  ✗ Run failed with code 1
+
+--- Run 2/10 ---
+  Parameters: UpperZoneTimeConstant=38.80, LowerZoneTimeConstant=614.39, GwPercValue=0.43...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  ✗ Run failed with code 1
+
+--- Run 3/10 ---
+  Parameters: UpperZoneTimeConstant=11.69, LowerZoneTimeConstant=292.79, GwPercValue=0.92...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  ✗ Run failed with code 1
+
+--- Run 4/10 ---
+  Parameters: UpperZoneTimeConstant=37.96, LowerZoneTimeConstant=706.29, GwPercValue=1.62...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  ✗ Run failed with code 1
+
+--- Run 5/10 ---
+  Parameters: UpperZoneTimeConstant=10.36, LowerZoneTimeConstant=497.14, GwPercValue=0.63...
+</pre></div>
+</div>
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">52</span>
-<span class="nn">     49 print(&quot;, &quot;.join([f&quot;{k}={v:.2f}&quot; for k, v</span> in <span class="ni">list(params.items</span><span class="nt">())[:3]]) + &quot;...&quot;)</span>
-<span class="g g-Whitespace">     </span><span class="mi">51</span> <span class="c1"># Pre-Run</span>
-<span class="ne">---&gt; </span><span class="mi">52</span> <span class="n">run_lisflood</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">pre_run_settings_file</span><span class="p">))</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">54</span>
+<span class="g g-Whitespace">     </span><span class="mi">52</span> <span class="n">run_lisflood</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">pre_run_settings_file</span><span class="p">))</span>
 <span class="g g-Whitespace">     </span><span class="mi">53</span> <span class="c1"># Actual Run</span>
-<span class="g g-Whitespace">     </span><span class="mi">54</span> <span class="n">return_code</span> <span class="o">=</span> <span class="n">run_lisflood</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">run_settings_file</span><span class="p">))</span>
+<span class="ne">---&gt; </span><span class="mi">54</span> <span class="n">return_code</span> <span class="o">=</span> <span class="n">run_lisflood</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">run_settings_file</span><span class="p">))</span>
+<span class="g g-Whitespace">     </span><span class="mi">56</span> <span class="k">if</span> <span class="n">return_code</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">57</span>     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  ✓ Run completed successfully&quot;</span><span class="p">)</span>
 
 <span class="nn">Cell In[2], line 133,</span> in <span class="ni">run_lisflood</span><span class="nt">(settings_file)</span>
 <span class="g g-Whitespace">    </span><span class="mi">112</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;</span>
