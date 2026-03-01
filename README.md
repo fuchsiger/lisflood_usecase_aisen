@@ -107,10 +107,10 @@ In more detail, we provide a quick wrap up on the process representations in LIS
 | Snow Melt | Degree-day Approach | Rain-on-snow impacts included; Melt-factor is seasonally varying; snow fall and melt threshold temp. set to 1°C | *SnowMeltCoef* (Degree-day factor) |
 | Soil Moisture Redistribution | Iterative vertical redistribution based on soil moisture gradients | Uses conceptual Darcy/van Genuchten relationships to define potential fluxes | - |
 | Preferential (Bypass) Flow | Power Function of Relative Saturation | Preferential flow water is limited by available infiltration water | *PowerPrefFlow* (shape parameter) |
-| Groundwater | Lower & Upper Zone Linear Reservoirs | Upper reservoir acts as fast and Lower reservoir as slow responding components; Percolation between both reservoirs considered; Groundwater loss outside the catchment from Lower zone possible | *GwPercValue* (Max. percolation between layers) <br> *LowerZoneTimeConstant* (Recession constant lower zone) <br> *UpperZoneTimeConstant* (Recession constant upper zone) <br> *GwLoss* (max. loss lower layer) |
+| Groundwater | Lower & Upper Zone Linear Reservoirs | Upper reservoir acts as fast and Lower reservoir as slow responding components; Percolation between both reservoirs considered; Groundwater loss outside the catchment from Lower zone possible | *GwPercValue* (Max. percolation between layers) <br> *LowerZoneTimeConstant* (Recession constant lower zone) <br> *UpperZoneTimeConstant* (Recession constant upper zone) <br> *GwLoss* (max. loss lower layer) <br> *LZThreshold* (Threshold below which no baseflow occurs) |
 | Surface Runoff Routing | Kinematic Wave | 4-point implicit finite-difference solution; momentum simplified (S0 = Sf) | — |
 | Sub-surface Routing | Kinematic Wave | Refers only to LZ & UZ (groundwater) water **not** soil water; chanell pixel assigned via drainage network | — |
-| Channel Routing | Kinematic Wave or Muskingum-Cunge-Todini (MCT) | Kinematic wave for higher slopes and for flat areas MCT; Pixels are assigned beforehand to what routing method is used; 4-point implicit finite-difference solution | *CalChanMan1* & *CalChanMan3* |
+| Channel Routing | Kinematic Wave or Muskingum-Cunge-Todini (MCT) | Kinematic wave for higher slopes and for flat areas MCT; Pixels are assigned beforehand to what routing method is used; 4-point implicit finite-difference solution | *CalChanMan1* <br> *CalChanMan3* |
 
 ## Acknowledgements
 

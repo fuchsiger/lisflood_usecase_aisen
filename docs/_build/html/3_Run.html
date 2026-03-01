@@ -332,6 +332,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#climate-elasticity"><strong>Climate Elasticity</strong></a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b-maps-nc">3b) Maps (.nc)</a></li>
 </ul>
             </nav>
         </div>
@@ -1673,6 +1674,98 @@ Q vs Precipitation:
 </div>
 </section>
 </section>
+<hr class="docutils" />
+<section id="b-maps-nc">
+<h2>3b) Maps (.nc)<a class="headerlink" href="#b-maps-nc" title="Permalink to this heading">#</a></h2>
+<p>Last but not least we will have a quick look how some water balance components look spatially. <br>
+However, we will also remove the last day of the simulation period as it is the only day we have in 2024 and we would like to check annual means of the variables. <br>
+And besides that, we will have a detailed look at the time steps of the soil moisture (theta) of layer 1. <br>
+Why do we do that?<br>
+Remember that we set the printing time step of the state variable maps to every 365 days, which we will prove.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read Maps</span>
+<span class="n">vars_to_read</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;etact&quot;</span><span class="p">,</span> <span class="s2">&quot;dis&quot;</span><span class="p">,</span> <span class="s2">&quot;th1&quot;</span><span class="p">,</span> <span class="s2">&quot;scov&quot;</span><span class="p">,</span> <span class="s2">&quot;smelt&quot;</span><span class="p">]</span>
+
+<span class="n">et_map</span><span class="p">,</span> <span class="n">q_map</span><span class="p">,</span> <span class="n">theta_map</span><span class="p">,</span> <span class="n">swe_map</span><span class="p">,</span> <span class="n">smlt_map</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">outfold</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">var</span><span class="si">}</span><span class="s2">.nc&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">vars_to_read</span>
+<span class="p">]</span>
+
+<span class="c1"># Remove last time step for cleaner full zear approach</span>
+<span class="n">smlt_map</span> <span class="o">=</span> <span class="n">smlt_map</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">et_map</span> <span class="o">=</span> <span class="n">et_map</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">q_map</span> <span class="o">=</span> <span class="n">q_map</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">swe_map</span> <span class="o">=</span> <span class="n">swe_map</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="c1"># Check Time Steps of theta and another variable</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of time steps theta:&quot;</span><span class="p">,</span> <span class="n">theta_map</span><span class="o">.</span><span class="n">sizes</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of time steps q:&quot;</span><span class="p">,</span> <span class="n">q_map</span><span class="o">.</span><span class="n">sizes</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of time steps theta: 49
+Number of time steps q: 17896
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can see that the flag we created worked properly and that we only have an end of the year value for theta1, while we have daily values for all other variables.<br>
+Let us plot the annual averages of them to dig into the spatial differences!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate annual averages</span>
+<span class="n">et_annual</span> <span class="o">=</span> <span class="n">et_map</span><span class="o">.</span><span class="n">etact</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="s2">&quot;1Y&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">skipna</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">)</span>
+<span class="n">q_annual</span> <span class="o">=</span> <span class="n">q_map</span><span class="o">.</span><span class="n">dis</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
+<span class="n">theta_annual</span> <span class="o">=</span> <span class="n">theta_map</span><span class="o">.</span><span class="n">th1</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
+<span class="n">swe_annual</span> <span class="o">=</span> <span class="n">swe_map</span><span class="o">.</span><span class="n">scov</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">)</span>
+<span class="n">smlt_annual</span> <span class="o">=</span> <span class="n">smlt_map</span><span class="o">.</span><span class="n">smelt</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="s1">&#39;1Y&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">skipna</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">)</span>
+
+<span class="c1"># Actual Pllot</span>
+<span class="n">cmaps</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;YlOrRd&quot;</span><span class="p">,</span>   <span class="c1"># ET</span>
+    <span class="s2">&quot;Blues&quot;</span><span class="p">,</span>    <span class="c1"># Discharge</span>
+    <span class="s2">&quot;YlGnBu&quot;</span><span class="p">,</span>   <span class="c1"># Soil Moisture</span>
+    <span class="s2">&quot;BuPu&quot;</span><span class="p">,</span>     <span class="c1"># Snow Cover</span>
+    <span class="s2">&quot;inferno&quot;</span><span class="p">,</span>  <span class="c1"># Snow Melt</span>
+<span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+<span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+<span class="n">datasets</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="n">et_annual</span><span class="p">,</span>   <span class="s2">&quot;Actual Evapotranspiration (Avg. An. Sum)&quot;</span><span class="p">,</span> <span class="s2">&quot;mm/year&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="n">q_annual</span><span class="p">,</span>    <span class="s2">&quot;Discharge (Avg.)&quot;</span><span class="p">,</span> <span class="s2">&quot;m³/s&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="n">theta_annual</span><span class="p">,</span><span class="s2">&quot;Soil Moisture (Avg.)&quot;</span><span class="p">,</span> <span class="s2">&quot;mm&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="n">swe_annual</span><span class="p">,</span>  <span class="s2">&quot;Snow Water Equivalent (Avg.)&quot;</span><span class="p">,</span> <span class="s2">&quot;mm&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="n">smlt_annual</span><span class="p">,</span> <span class="s2">&quot;Snow Melt (Avg. An. Sum)&quot;</span><span class="p">,</span> <span class="s2">&quot;mm/year&quot;</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">cbar_label</span><span class="p">),</span> <span class="n">cmap</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">datasets</span><span class="p">,</span> <span class="n">cmaps</span><span class="p">)):</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span>
+        <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+        <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span>
+        <span class="n">add_colorbar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">cbar_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="n">cbar_label</span><span class="p">}</span>
+    <span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Longitude&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Latitude&quot;</span><span class="p">)</span>
+
+<span class="c1"># Hide the unused 6th subplot</span>
+<span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/9a212e16b8fb4587fecc30ac37cb0d70bbdc3689ad4bc295a0ef41a8ed0a0bf4.png" src="_images/9a212e16b8fb4587fecc30ac37cb0d70bbdc3689ad4bc295a0ef41a8ed0a0bf4.png" />
+</div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1747,6 +1840,7 @@ Q vs Precipitation:
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#climate-elasticity"><strong>Climate Elasticity</strong></a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b-maps-nc">3b) Maps (.nc)</a></li>
 </ul>
   </nav></div>
 
